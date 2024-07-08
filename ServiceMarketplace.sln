@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceMarketplace.Infrastr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceMarketplace.Models", "ServiceMarketplace.Models\ServiceMarketplace.Models.csproj", "{62C4B047-2F1B-42A7-ABAC-9AB1D7675D1E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceMarketplace.Data", "ServiceMarketplace.Data\ServiceMarketplace.Data.csproj", "{E48870FF-5D23-4DE2-AA98-3BB4528BFD68}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{62C4B047-2F1B-42A7-ABAC-9AB1D7675D1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62C4B047-2F1B-42A7-ABAC-9AB1D7675D1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62C4B047-2F1B-42A7-ABAC-9AB1D7675D1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E48870FF-5D23-4DE2-AA98-3BB4528BFD68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E48870FF-5D23-4DE2-AA98-3BB4528BFD68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E48870FF-5D23-4DE2-AA98-3BB4528BFD68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E48870FF-5D23-4DE2-AA98-3BB4528BFD68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

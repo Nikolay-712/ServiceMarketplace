@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Exceptions\ClientExceptions\" />
     <Folder Include="Exceptions\ServereExceptions\" />
   </ItemGroup>
 

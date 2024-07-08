@@ -2,7 +2,11 @@ using FluentValidation.AspNetCore;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using ServiceMarketplace.Data;
+using ServiceMarketplace.Data.Configurations;
+using ServiceMarketplace.Data.Entities;
 using ServiceMarketplace.Infrastructure.Configurations;
 using ServiceMarketplace.Infrastructure.Filters;
 using System.Globalization;
@@ -70,6 +74,8 @@ internal class Program
         SwaggerConfiguration(services, configuration);
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
+
+        ApplicationContextConfiguration(services, configuration);
     }
 
     private static void ConfigureRequestLocalization(IApplicationBuilder app, IConfiguration configuration)
@@ -149,5 +155,16 @@ internal class Program
         app.UseAuthorization();
 
         app.MapControllers();
+    }
+
+    private static void ApplicationContextConfiguration(IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddDbContext<ApplicationContext>(options => options
+            .UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+        services
+            .AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
+            .AddRoles<ApplicationRole>()
+            .AddEntityFrameworkStores<ApplicationContext>();
     }
 }
