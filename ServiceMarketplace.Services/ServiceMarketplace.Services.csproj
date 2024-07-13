@@ -7,11 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="11.9.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\ServiceMarketplace.Common\ServiceMarketplace.Common.csproj" />
+    <ProjectReference Include="..\ServiceMarketplace.Data\ServiceMarketplace.Data.csproj" />
+    <ProjectReference Include="..\ServiceMarketplace.Models\ServiceMarketplace.Models.csproj" />
   </ItemGroup>
 
 </Project>

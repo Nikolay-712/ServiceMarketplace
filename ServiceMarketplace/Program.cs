@@ -1,5 +1,6 @@
 using FluentValidation.AspNetCore;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,13 +10,18 @@ using ServiceMarketplace.Data.Configurations;
 using ServiceMarketplace.Data.Entities;
 using ServiceMarketplace.Infrastructure.Configurations;
 using ServiceMarketplace.Infrastructure.Filters;
+using ServiceMarketplace.Models.Validators;
+using ServiceMarketplace.Services.Implementations.Administration;
+using ServiceMarketplace.Services.Interfaces.Administration;
 using System.Globalization;
+using System.Text;
 
 internal class Program
 {
     [Obsolete]
     private static void Main(string[] args)
     {
+        Console.OutputEncoding = Encoding.UTF8;
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
         ConfigureAppSettings(builder.Host, builder.Environment);
@@ -62,7 +68,7 @@ internal class Program
         services.AddFluentValidation(options =>
         {
             options.DisableDataAnnotationsValidation = true;
-            //options.RegisterValidatorsFromAssembly();
+            options.RegisterValidatorsFromAssemblyContaining<ManageCategoryValidator>();
             options.LocalizationEnabled = true;
         });
 
@@ -76,6 +82,8 @@ internal class Program
         services.AddSwaggerGen();
 
         ApplicationContextConfiguration(services, configuration);
+
+        services.AddScoped<ICategoryService, CategoryService>();
     }
 
     private static void ConfigureRequestLocalization(IApplicationBuilder app, IConfiguration configuration)

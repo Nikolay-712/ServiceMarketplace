@@ -29,10 +29,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ServiceMarketplace.Data\ServiceMarketplace.Data.csproj" />
     <ProjectReference Include="..\ServiceMarketplace.Infrastructure\ServiceMarketplace.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\ServiceMarketplace.Services\ServiceMarketplace.Services.csproj" />
   </ItemGroup>
 
 </Project>

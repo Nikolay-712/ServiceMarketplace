@@ -11,6 +11,12 @@ public class ApplicationContext : IdentityDbContext<ApplicationUser, Application
     {
     }
 
+    public DbSet<Category> Categories { get; set; }
+
+    public DbSet<SubCategory> SubCategories { get; set; }
+
+    public DbSet<Tag> Tags { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
