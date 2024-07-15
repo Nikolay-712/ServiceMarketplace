@@ -120,6 +120,9 @@
   <data name="ExistsCategoryName" xml:space="preserve">
     <value>A category with this name has already been added</value>
   </data>
+  <data name="ExistsCityName" xml:space="preserve">
+    <value>A city with this name has already been added</value>
+  </data>
   <data name="ExistsSubCategoryName" xml:space="preserve">
     <value>A sub-category with this name has already been added</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="NotFoundCategory" xml:space="preserve">
     <value>There is no such category</value>
+  </data>
+  <data name="NotFoundCity" xml:space="preserve">
+    <value>There is no such city</value>
   </data>
   <data name="NotFoundTag" xml:space="preserve">
     <value>There is no such tag</value>
