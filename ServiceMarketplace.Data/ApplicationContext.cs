@@ -17,6 +17,8 @@ public class ApplicationContext : IdentityDbContext<ApplicationUser, Application
 
     public DbSet<Tag> Tags { get; set; }
 
+    public DbSet<City> Cities { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
