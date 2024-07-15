@@ -84,6 +84,7 @@ internal class Program
         ApplicationContextConfiguration(services, configuration);
 
         services.AddScoped<ICategoryService, CategoryService>();
+        services.AddScoped<ICityService, CityService>();
     }
 
     private static void ConfigureRequestLocalization(IApplicationBuilder app, IConfiguration configuration)

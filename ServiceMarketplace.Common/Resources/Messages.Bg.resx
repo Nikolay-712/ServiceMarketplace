@@ -120,6 +120,9 @@
   <data name="ExistsCategoryName" xml:space="preserve">
     <value>Категория с това име вече е добавена</value>
   </data>
+  <data name="ExistsCityName" xml:space="preserve">
+    <value>Град с това име вече е добавена</value>
+  </data>
   <data name="ExistsSubCategoryName" xml:space="preserve">
     <value>Под категория с това име вече е добавена</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="NotFoundCategory" xml:space="preserve">
     <value>Няма такава категория</value>
+  </data>
+  <data name="NotFoundCity" xml:space="preserve">
+    <value>Няма такъв град</value>
   </data>
   <data name="NotFoundTag" xml:space="preserve">
     <value>Няма такъв таг</value>

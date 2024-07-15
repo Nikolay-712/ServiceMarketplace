@@ -70,6 +70,15 @@ namespace ServiceMarketplace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A city with this name has already been added.
+        /// </summary>
+        public static string ExistsCityName {
+            get {
+                return ResourceManager.GetString("ExistsCityName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A sub-category with this name has already been added.
         /// </summary>
         public static string ExistsSubCategoryName {
@@ -102,6 +111,15 @@ namespace ServiceMarketplace.Common.Resources {
         public static string NotFoundCategory {
             get {
                 return ResourceManager.GetString("NotFoundCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no such city.
+        /// </summary>
+        public static string NotFoundCity {
+            get {
+                return ResourceManager.GetString("NotFoundCity", resourceCulture);
             }
         }
         
