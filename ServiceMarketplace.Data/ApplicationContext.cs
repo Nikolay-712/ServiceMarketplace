@@ -19,6 +19,12 @@ public class ApplicationContext : IdentityDbContext<ApplicationUser, Application
 
     public DbSet<City> Cities { get; set; }
 
+    public DbSet<Service> Services { get; set; }
+
+    public DbSet<ServiceCity> ServiceCities { get; set; }
+
+    public DbSet<ServiceTag> ServiceTags { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

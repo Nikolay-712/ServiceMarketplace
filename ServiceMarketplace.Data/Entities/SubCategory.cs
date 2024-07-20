@@ -15,4 +15,6 @@ public class SubCategory : BaseEntity
     public Guid CategoryId { get; set; }
 
     public virtual ICollection<Tag> Tags { get; set; }
+
+    public virtual ICollection<Service> Services { get; set; }
 }

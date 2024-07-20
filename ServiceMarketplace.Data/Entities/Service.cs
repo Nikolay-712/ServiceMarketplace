@@ -1,0 +1,22 @@
+﻿namespace ServiceMarketplace.Data.Entities;
+
+public class Service : BaseEntity
+{
+    public Guid Id { get; set; }
+
+    public string NameBg { get; set; }
+
+    public string NameEn { get; set; }
+
+    public string DescriptionBg { get; set; }
+
+    public string DescriptionEn { get; set; }
+
+    public Guid SubCategoryId { get; set; }
+
+    public SubCategory SubCategory { get; set; }
+
+    public virtual ICollection<ServiceCity> Cities { get; set; }
+
+    public virtual ICollection<ServiceTag> SelectedTags { get; set; }
+}

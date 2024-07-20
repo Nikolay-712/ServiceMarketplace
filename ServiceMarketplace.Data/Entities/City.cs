@@ -7,4 +7,6 @@ public class City
     public string NameBg { get; set; }
 
     public string NameEn { get; set; }
+
+    public virtual ICollection<ServiceCity> Services { get; set; }
 }

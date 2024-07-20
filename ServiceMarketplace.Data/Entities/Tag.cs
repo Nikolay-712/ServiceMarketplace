@@ -9,4 +9,6 @@ public class Tag
     public string NameEn { get; set; }
 
     public Guid SubCategoryId { get; set; }
+
+    public virtual ICollection<ServiceTag> Services { get; set; }
 }
