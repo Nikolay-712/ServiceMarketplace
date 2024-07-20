@@ -16,6 +16,10 @@ public class Service : BaseEntity
 
     public SubCategory SubCategory { get; set; }
 
+    public Guid OwnerId { get; set; }
+
+    public ApplicationUser Owner { get; set; }
+
     public virtual ICollection<ServiceCity> Cities { get; set; }
 
     public virtual ICollection<ServiceTag> SelectedTags { get; set; }

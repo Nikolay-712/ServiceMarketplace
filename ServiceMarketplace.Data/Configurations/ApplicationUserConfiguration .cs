@@ -28,5 +28,12 @@ internal class ApplicationUserConfiguration : IEntityTypeConfiguration<Applicati
             .HasForeignKey(e => e.UserId)
             .IsRequired()
             .OnDelete(DeleteBehavior.Restrict);
+
+        appUser
+            .HasMany(x => x.Services)
+            .WithOne(x => x.Owner)
+            .HasForeignKey(x => x.OwnerId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

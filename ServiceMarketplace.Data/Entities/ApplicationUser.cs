@@ -18,4 +18,6 @@ public class ApplicationUser : IdentityUser<Guid>
     public virtual ICollection<IdentityUserClaim<Guid>> Claims { get; set; }
 
     public virtual ICollection<IdentityUserLogin<Guid>> Logins { get; set; }
+
+    public virtual ICollection<Service> Services { get; set; }
 }
