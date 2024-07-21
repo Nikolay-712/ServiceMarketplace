@@ -1,6 +1,5 @@
 using FluentValidation.AspNetCore;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,10 +10,13 @@ using ServiceMarketplace.Data.Entities;
 using ServiceMarketplace.Infrastructure.Configurations;
 using ServiceMarketplace.Infrastructure.Filters;
 using ServiceMarketplace.Models.Validators;
-using ServiceMarketplace.Services.Implementations.Administration;
-using ServiceMarketplace.Services.Interfaces.Administration;
 using System.Globalization;
 using System.Text;
+
+using AdministrationInterfaces = ServiceMarketplace.Services.Interfaces.Administration;
+using AdministrationImplementations = ServiceMarketplace.Services.Implementations.Administration;
+using OwnerInterfaces = ServiceMarketplace.Services.Interfaces.Owner;
+using OwnerImplementations = ServiceMarketplace.Services.Implementations.Owner;
 
 internal class Program
 {
@@ -83,8 +85,13 @@ internal class Program
 
         ApplicationContextConfiguration(services, configuration);
 
-        services.AddScoped<ICategoryService, CategoryService>();
-        services.AddScoped<ICityService, CityService>();
+        //Administration area
+        services.AddScoped<AdministrationInterfaces.ICategoryService, AdministrationImplementations.CategoryService>();
+        services.AddScoped<AdministrationInterfaces.ICityService, AdministrationImplementations.CityService>();
+
+        //Owner area
+        services.AddScoped<OwnerInterfaces.IServiceService, OwnerImplementations.ServiceService>();
+        services.AddScoped<OwnerInterfaces.ICategoryService, OwnerImplementations.CategoryService>();
     }
 
     private static void ConfigureRequestLocalization(IApplicationBuilder app, IConfiguration configuration)
