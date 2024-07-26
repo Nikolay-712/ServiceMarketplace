@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using ServiceMarketplace.Common.Exceptions.ClientExceptions;
 using ServiceMarketplace.Common.Resources;
 using ServiceMarketplace.Data;
+using ServiceMarketplace.Models.Response;
 using ServiceMarketplace.Services.Interfaces.Owner;
 
 namespace ServiceMarketplace.Services.Implementations.Owner;
@@ -26,5 +27,17 @@ public class CityService : ICityService
             _logger.LogError("No city exists with this ID {CityId}", cityId);
             throw new NotFoundEntityException(Messages.NotFoundCity);
         }
+    }
+
+    public async Task<IReadOnlyList<CityResponseModel>> GetAllCitiesAsync()
+    {
+        IReadOnlyList<CityResponseModel> cities = await _applicationContext.Cities
+            .Select(x => new CityResponseModel(
+                x.Id,
+                x.NameBg,
+                x.NameEn))
+            .ToListAsync();
+
+        return cities;
     }
 }
