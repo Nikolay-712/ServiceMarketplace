@@ -92,6 +92,7 @@ internal class Program
         //Owner area
         services.AddScoped<OwnerInterfaces.IServiceService, OwnerImplementations.ServiceService>();
         services.AddScoped<OwnerInterfaces.ICategoryService, OwnerImplementations.CategoryService>();
+        services.AddScoped<OwnerInterfaces.ICityService, OwnerImplementations.CityService>();
     }
 
     private static void ConfigureRequestLocalization(IApplicationBuilder app, IConfiguration configuration)

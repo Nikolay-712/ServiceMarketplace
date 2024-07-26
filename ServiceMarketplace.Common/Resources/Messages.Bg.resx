@@ -123,6 +123,9 @@
   <data name="ExistsCityName" xml:space="preserve">
     <value>Град с това име вече е добавена</value>
   </data>
+  <data name="ExistsServiceName" xml:space="preserve">
+    <value>Вече имате услуга която е записана с това име</value>
+  </data>
   <data name="ExistsSubCategoryName" xml:space="preserve">
     <value>Под категория с това име вече е добавена</value>
   </data>

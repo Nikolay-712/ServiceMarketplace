@@ -7,9 +7,9 @@ using ServiceMarketplace.Services.Interfaces.Administration;
 
 namespace ServiceMarketplace.Controllers.Administration;
 
+//[Authorize(Roles = "Administrator")]
 [Route("api/administration/[controller]")]
 [ApiController]
-//[Authorize(Roles = "Administrator")]
 public class CategoriesController : ControllerBase
 {
     private readonly ICategoryService _categoryService;

@@ -79,6 +79,15 @@ namespace ServiceMarketplace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You already have a service registered with this name.
+        /// </summary>
+        public static string ExistsServiceName {
+            get {
+                return ResourceManager.GetString("ExistsServiceName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A sub-category with this name has already been added.
         /// </summary>
         public static string ExistsSubCategoryName {
