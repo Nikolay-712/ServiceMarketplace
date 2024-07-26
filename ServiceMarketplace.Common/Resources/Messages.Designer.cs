@@ -61,6 +61,15 @@ namespace ServiceMarketplace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You cannot remove all tags. The service must have at least one tag.
+        /// </summary>
+        public static string CannotRemoveAllTags {
+            get {
+                return ResourceManager.GetString("CannotRemoveAllTags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A category with this name has already been added.
         /// </summary>
         public static string ExistsCategoryName {
@@ -129,6 +138,33 @@ namespace ServiceMarketplace.Common.Resources {
         public static string NotFoundCity {
             get {
                 return ResourceManager.GetString("NotFoundCity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no such service.
+        /// </summary>
+        public static string NotFoundService {
+            get {
+                return ResourceManager.GetString("NotFoundService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The city you want to remove is not valid for this service.
+        /// </summary>
+        public static string NotFoundServiceCity {
+            get {
+                return ResourceManager.GetString("NotFoundServiceCity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The tag you want to remove is not valid for this service.
+        /// </summary>
+        public static string NotFoundServiceTag {
+            get {
+                return ResourceManager.GetString("NotFoundServiceTag", resourceCulture);
             }
         }
         

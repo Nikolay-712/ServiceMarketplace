@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CannotRemoveAllTags" xml:space="preserve">
+    <value>You cannot remove all tags. The service must have at least one tag</value>
+  </data>
   <data name="ExistsCategoryName" xml:space="preserve">
     <value>A category with this name has already been added</value>
   </data>
@@ -140,6 +143,15 @@
   </data>
   <data name="NotFoundCity" xml:space="preserve">
     <value>There is no such city</value>
+  </data>
+  <data name="NotFoundService" xml:space="preserve">
+    <value>There is no such service</value>
+  </data>
+  <data name="NotFoundServiceCity" xml:space="preserve">
+    <value>The city you want to remove is not valid for this service</value>
+  </data>
+  <data name="NotFoundServiceTag" xml:space="preserve">
+    <value>The tag you want to remove is not valid for this service</value>
   </data>
   <data name="NotFoundTag" xml:space="preserve">
     <value>There is no such tag</value>

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CannotRemoveAllTags" xml:space="preserve">
+    <value>Не може да премахнете всички тагове. Услугата трябва да има поне един таг</value>
+  </data>
   <data name="ExistsCategoryName" xml:space="preserve">
     <value>Категория с това име вече е добавена</value>
   </data>
@@ -140,6 +143,15 @@
   </data>
   <data name="NotFoundCity" xml:space="preserve">
     <value>Няма такъв град</value>
+  </data>
+  <data name="NotFoundService" xml:space="preserve">
+    <value>Няма такава услуга</value>
+  </data>
+  <data name="NotFoundServiceCity" xml:space="preserve">
+    <value>Грагд който искате да премахнете не е валиден за този услуга</value>
+  </data>
+  <data name="NotFoundServiceTag" xml:space="preserve">
+    <value>Таг който искате да премахнете не е валиден за този услуга</value>
   </data>
   <data name="NotFoundTag" xml:space="preserve">
     <value>Няма такъв таг</value>

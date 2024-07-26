@@ -75,6 +75,101 @@ public class ServiceService : IServiceService
         }
     }
 
+    public async Task UpdateAsync(Guid serviceId, Guid ownerId, UpdateServiceRequestModel requestModel)
+    {
+        Service? service = await _applicationContext.Services.FirstOrDefaultAsync(x => x.Id == serviceId && x.OwnerId == ownerId);
+        if (service is null)
+        {
+            _logger.LogError("No service exists with this ID {ServiceId}", serviceId);
+            throw new NotFoundEntityException(Messages.NotFoundService);
+        }
+
+        if (service.NameEn != requestModel.NameEn || service.NameBg != requestModel.NameBg)
+        {
+            bool existsServiceName = await _applicationContext.Services
+                .AnyAsync(x => (x.NameBg == requestModel.NameBg || x.NameEn == requestModel.NameEn) && x.OwnerId == ownerId);
+
+            if (existsServiceName)
+            {
+                _logger.LogError("There is a service registered with this name: {ServiceNameBg}/{ServiceNameEn}",
+                    requestModel.NameBg,
+                    requestModel.NameEn);
+                throw new ExistsServiceNameException(Messages.ExistsServiceName);
+            }
+        }
+
+        service.NameBg = requestModel.NameBg;
+        service.NameEn = requestModel.NameEn;
+        service.DescriptionBg = requestModel.DescriptionEn;
+        service.DescriptionEn = requestModel.DescriptionEn;
+        service.ModifiedOn = DateTime.UtcNow;
+
+        await _applicationContext.SaveChangesAsync();
+        _logger.LogInformation("Successfully updated a service with ID: {ServiceId}", serviceId);
+    }
+
+    public async Task RemoveTagAsync(Guid serviceId, Guid ownerId, int tagId)
+    {
+        Service? service = await _applicationContext.Services
+            .Include(x => x.SelectedTags)
+            .FirstOrDefaultAsync(x => x.Id == serviceId && x.OwnerId == ownerId);
+        if (service is null)
+        {
+            _logger.LogError("No service exists with this ID {ServiceId}", serviceId);
+            throw new NotFoundEntityException(Messages.NotFoundService);
+        }
+
+        bool isLastTag = service.SelectedTags.Count == 1;
+        if (isLastTag)
+        {
+            _logger.LogError("You cannot remove all tags. The service must have at least one tag");
+            throw new RemoveAllException(Messages.CannotRemoveAllTags);
+        }
+
+        ServiceTag? serviceTag = service.SelectedTags.FirstOrDefault(x => x.ServiceId == serviceId && x.TagId == tagId);
+        if (serviceTag is null)
+        {
+            _logger.LogError("The tag you want to remove is not valid for this service: Service ID {ServiceId} - Tag ID {TagId}", serviceId, tagId);
+            throw new NotFoundEntityException(Messages.NotFoundServiceTag);
+        }
+
+        _applicationContext.ServiceTags.Remove(serviceTag);
+        await _applicationContext.SaveChangesAsync();
+
+        _logger.LogInformation("Successfully remove a tag for service with ID: {ServiceId} and Tag ID {TagId}", serviceId, tagId);
+    }
+
+    public async Task RemoveCityAsync(Guid serviceId, Guid ownerId, Guid cityId)
+    {
+        Service? service = await _applicationContext.Services
+            .Include(x => x.Cities)
+            .FirstOrDefaultAsync(x => x.Id == serviceId && x.OwnerId == ownerId);
+        if (service is null)
+        {
+            _logger.LogError("No service exists with this ID {ServiceId}", serviceId);
+            throw new NotFoundEntityException(Messages.NotFoundService);
+        }
+
+        bool isLastCity = service.Cities.Count == 1;
+        if (isLastCity)
+        {
+            _logger.LogError("You cannot remove all cities. The service must have at least one city");
+            throw new RemoveAllException(Messages.CannotRemoveAllTags);
+        }
+
+        ServiceCity? serviceCity = service.Cities.FirstOrDefault(x => x.ServiceId == serviceId && x.CityId == cityId);
+        if (serviceCity is null)
+        {
+            _logger.LogError("The city you want to remove is not valid for this service: Service ID {ServiceId} - City ID {CityId}", serviceId, cityId);
+            throw new NotFoundEntityException(Messages.NotFoundServiceCity);
+        }
+
+        _applicationContext.ServiceCities.Remove(serviceCity);
+        await _applicationContext.SaveChangesAsync();
+
+        _logger.LogInformation("Successfully remove a city for service with ID: {ServiceId} and City ID {CityId}", serviceId, cityId);
+    }
+
     private async Task AddServiceTagsAsync(HashSet<int> tags, Guid subCategoryId, Guid serviceId)
     {
         foreach (int tagId in tags)
