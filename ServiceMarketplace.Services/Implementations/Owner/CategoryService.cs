@@ -1,8 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ServiceMarketplace.Common.Exceptions.ClientExceptions;
+using ServiceMarketplace.Common.Extensions;
 using ServiceMarketplace.Common.Resources;
 using ServiceMarketplace.Data;
+using ServiceMarketplace.Data.Entities;
+using ServiceMarketplace.Models.Response;
 using ServiceMarketplace.Services.Interfaces.Owner;
 
 namespace ServiceMarketplace.Services.Implementations.Owner;
@@ -16,6 +19,56 @@ public class CategoryService : ICategoryService
     {
         _applicationContext = applicationContext;
         _logger = logger;
+    }
+
+    public async Task<IReadOnlyList<CategoryResponseModel>> GetAllCategoriesAsync()
+    {
+        IReadOnlyList<CategoryResponseModel> categories = await _applicationContext.Categories
+            .OrderBy(x => x.NameBg)
+            .ThenBy(x => x.NameEn)
+              .Select(x => new CategoryResponseModel(
+                  x.Id,
+                  x.NameBg,
+                  x.NameEn,
+                  x.DescriptionBg,
+                  x.DescriptionEn))
+              .ToListAsync();
+
+        return categories;
+    }
+
+    public async Task<IReadOnlyList<SubCategoryDetailsResponseModel>> GetAllSubCategoriesAsync(Guid categoryId)
+    {
+        IQueryable<SubCategory> subCategoriesQuery = _applicationContext.SubCategories.Where(x => x.CategoryId == categoryId).Include(x => x.Tags);
+
+        IReadOnlyList<SubCategoryDetailsResponseModel> subCategories = await subCategoriesQuery
+            .OrderBy(x => x.NameBg)
+            .Select(x => new SubCategoryDetailsResponseModel(
+                x.Id,
+                x.NameBg,
+                x.NameEn,
+                x.DescriptionBg,
+                x.DescriptionEn,
+                x.CreatedOn.DateFormat(),
+                x.ModifiedOn == null ? string.Empty : x.ModifiedOn.Value.DateFormat(),
+               new List<TagResponseModel>()))
+            .ToListAsync();
+
+        return subCategories;
+    }
+
+    public async Task<IReadOnlyList<TagResponseModel>> GetAllTagsAsync(Guid subCategoryId)
+    {
+        IReadOnlyList<TagResponseModel> tags = await _applicationContext.Tags
+             .Where(x => x.SubCategoryId == subCategoryId)
+             .OrderBy(x => x.NameBg)
+             .Select(x => new TagResponseModel(
+                 x.Id,
+                 x.NameBg,
+                 x.NameEn))
+             .ToListAsync();
+
+        return tags;
     }
 
     public async Task ValidateSubCategoryAsync(Guid subCategoryId)

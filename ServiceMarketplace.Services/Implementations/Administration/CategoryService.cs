@@ -59,7 +59,9 @@ public class CategoryService : ICategoryService
               .Select(x => new CategoryResponseModel(
                   x.Id,
                   x.NameBg,
-                  x.NameEn))
+                  x.NameEn,
+                  x.DescriptionBg,
+                  x.DescriptionEn))
               .ToListAsync();
 
         return new PaginationResponseModel<CategoryResponseModel>
@@ -196,6 +198,7 @@ public class CategoryService : ICategoryService
         }
 
         SubCategoryDetailsResponseModel subCategoryDetails = new(
+            subCategory.Id,
             subCategory.NameBg,
             subCategory.NameEn,
             subCategory.DescriptionBg,
