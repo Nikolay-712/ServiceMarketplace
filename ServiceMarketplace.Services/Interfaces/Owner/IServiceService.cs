@@ -8,6 +8,8 @@ public interface IServiceService
 
     Task UpdateAsync(Guid serviceId, Guid ownerId, UpdateServiceRequestModel requestModel);
 
+    Task AddTagAsync(Guid serviceId, Guid ownerId, int tagId);
+
     Task RemoveTagAsync(Guid serviceId, Guid ownerId, int tagId);
 
     Task RemoveCityAsync(Guid serviceId, Guid ownerId, Guid cityId);

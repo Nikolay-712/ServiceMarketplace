@@ -97,6 +97,15 @@ namespace ServiceMarketplace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The tag one you want to add for this service already exists.
+        /// </summary>
+        public static string ExistsServiceTag {
+            get {
+                return ResourceManager.GetString("ExistsServiceTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A sub-category with this name has already been added.
         /// </summary>
         public static string ExistsSubCategoryName {

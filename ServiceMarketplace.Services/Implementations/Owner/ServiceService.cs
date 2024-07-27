@@ -77,7 +77,7 @@ public class ServiceService : IServiceService
 
     public async Task UpdateAsync(Guid serviceId, Guid ownerId, UpdateServiceRequestModel requestModel)
     {
-        Service? service = await _applicationContext.Services.FirstOrDefaultAsync(x => x.Id == serviceId && x.OwnerId == ownerId);
+        Service? service = await _applicationContext.Services.Include(x => x.Cities).FirstOrDefaultAsync(x => x.Id == serviceId && x.OwnerId == ownerId);
         if (service is null)
         {
             _logger.LogError("No service exists with this ID {ServiceId}", serviceId);
@@ -104,20 +104,41 @@ public class ServiceService : IServiceService
         service.DescriptionEn = requestModel.DescriptionEn;
         service.ModifiedOn = DateTime.UtcNow;
 
+        if (requestModel.Cities is not null)
+        {
+            HashSet<Guid> validCities = requestModel.Cities.Where(x => !service.Cities.Select(d => d.CityId).Contains(x)).ToHashSet();
+            await AddServiceCitiesAsync(validCities, serviceId);
+        }
+
         await _applicationContext.SaveChangesAsync();
         _logger.LogInformation("Successfully updated a service with ID: {ServiceId}", serviceId);
     }
 
+    public async Task AddTagAsync(Guid serviceId, Guid ownerId, int tagId)
+    {
+        Service service = await GetServiceWithTagsAsync(serviceId, ownerId);
+
+        bool existsTag = service.SelectedTags.Any(x => x.ServiceId == serviceId && x.TagId == tagId);
+        if (existsTag)
+        {
+            _logger.LogError("Tag with ID: {TagId} already exists for service {ServiceId}", tagId, serviceId);
+            throw new ExistsTagException(Messages.ExistsServiceTag);
+        }
+
+        await _categoryService.ValidateSelectedTagAsync(tagId, service.SubCategoryId);
+        ServiceTag serviceTag = new()
+        {
+            ServiceId = serviceId,
+            TagId = tagId
+        };
+
+        _applicationContext.ServiceTags.Add(serviceTag);
+        await _applicationContext.SaveChangesAsync();
+    }
+
     public async Task RemoveTagAsync(Guid serviceId, Guid ownerId, int tagId)
     {
-        Service? service = await _applicationContext.Services
-            .Include(x => x.SelectedTags)
-            .FirstOrDefaultAsync(x => x.Id == serviceId && x.OwnerId == ownerId);
-        if (service is null)
-        {
-            _logger.LogError("No service exists with this ID {ServiceId}", serviceId);
-            throw new NotFoundEntityException(Messages.NotFoundService);
-        }
+        Service service = await GetServiceWithTagsAsync(serviceId, ownerId);
 
         bool isLastTag = service.SelectedTags.Count == 1;
         if (isLastTag)
@@ -141,14 +162,7 @@ public class ServiceService : IServiceService
 
     public async Task RemoveCityAsync(Guid serviceId, Guid ownerId, Guid cityId)
     {
-        Service? service = await _applicationContext.Services
-            .Include(x => x.Cities)
-            .FirstOrDefaultAsync(x => x.Id == serviceId && x.OwnerId == ownerId);
-        if (service is null)
-        {
-            _logger.LogError("No service exists with this ID {ServiceId}", serviceId);
-            throw new NotFoundEntityException(Messages.NotFoundService);
-        }
+        Service service = await GetServiceWithCitiesAsync(serviceId, ownerId);
 
         bool isLastCity = service.Cities.Count == 1;
         if (isLastCity)
@@ -198,5 +212,33 @@ public class ServiceService : IServiceService
 
             _applicationContext.ServiceCities.Add(serviceCity);
         }
+    }
+
+    private async Task<Service> GetServiceWithTagsAsync(Guid serviceId, Guid ownerId)
+    {
+        Service? service = await _applicationContext.Services
+           .Include(x => x.SelectedTags)
+           .FirstOrDefaultAsync(x => x.Id == serviceId && x.OwnerId == ownerId);
+        if (service is null)
+        {
+            _logger.LogError("No service exists with this ID {ServiceId}", serviceId);
+            throw new NotFoundEntityException(Messages.NotFoundService);
+        }
+
+        return service;
+    }
+
+    private async Task<Service> GetServiceWithCitiesAsync(Guid serviceId, Guid ownerId)
+    {
+        Service? service = await _applicationContext.Services
+           .Include(x => x.Cities)
+           .FirstOrDefaultAsync(x => x.Id == serviceId && x.OwnerId == ownerId);
+        if (service is null)
+        {
+            _logger.LogError("No service exists with this ID {ServiceId}", serviceId);
+            throw new NotFoundEntityException(Messages.NotFoundService);
+        }
+
+        return service;
     }
 }

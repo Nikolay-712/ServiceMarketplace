@@ -129,6 +129,9 @@
   <data name="ExistsServiceName" xml:space="preserve">
     <value>You already have a service registered with this name</value>
   </data>
+  <data name="ExistsServiceTag" xml:space="preserve">
+    <value>The tag one you want to add for this service already exists</value>
+  </data>
   <data name="ExistsSubCategoryName" xml:space="preserve">
     <value>A sub-category with this name has already been added</value>
   </data>

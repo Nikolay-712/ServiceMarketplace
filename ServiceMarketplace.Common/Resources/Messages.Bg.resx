@@ -129,6 +129,9 @@
   <data name="ExistsServiceName" xml:space="preserve">
     <value>Вече имате услуга която е записана с това име</value>
   </data>
+  <data name="ExistsServiceTag" xml:space="preserve">
+    <value>Тага който искате да добавите за тази услуга вече съществува</value>
+  </data>
   <data name="ExistsSubCategoryName" xml:space="preserve">
     <value>Под категория с това име вече е добавена</value>
   </data>
@@ -151,7 +154,7 @@
     <value>Грагд който искате да премахнете не е валиден за този услуга</value>
   </data>
   <data name="NotFoundServiceTag" xml:space="preserve">
-    <value>Таг който искате да премахнете не е валиден за този услуга</value>
+    <value>Таг който искате да премахнете не е валиден за тази услуга</value>
   </data>
   <data name="NotFoundTag" xml:space="preserve">
     <value>Няма такъв таг</value>
