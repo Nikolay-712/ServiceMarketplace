@@ -39,6 +39,16 @@ public class ServicesController : ControllerBase
         return new ResponseContent();
     }
 
+    [HttpPatch("change-category/{serviceId}")]
+    [ProducesResponseType<ResponseContent>(200)]
+    public async Task<ResponseContent> ChangeCategoryAsync([FromRoute] Guid serviceId, ChangeCategoryRequestModel requestModel)
+    {
+        Guid ownerId = Guid.Parse("CEFAD0F7-678E-4769-B0C6-3943BF78A59D");
+        await _serviceService.ChangeCategoryAsync(serviceId, ownerId, requestModel);
+
+        return new ResponseContent();
+    }
+
     [HttpPatch("add-tag/{serviceId}/{tagId}")]
     [ProducesResponseType<ResponseContent>(200)]
     public async Task<ResponseContent> AddTagAsync([FromRoute] Guid serviceId, [FromRoute] int tagId)

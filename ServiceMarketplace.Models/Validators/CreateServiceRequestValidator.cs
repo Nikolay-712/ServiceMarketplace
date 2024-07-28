@@ -44,24 +44,28 @@ public class CreateServiceRequestValidator : AbstractValidator<CreateServiceRequ
             .NotEmpty()
             .WithMessage(Messages.RequiredField);
 
+        RuleFor(x => x.SubCategoryId)
+            .NotEmpty()
+            .WithMessage(Messages.RequiredField);
+
         RuleForEach(x => x.Cities)
             .NotEmpty()
-            .When(x => x is not null)
+            .When(x => x.Cities is not null)
             .WithMessage(Messages.RequiredField);
 
         RuleFor(x => x.Cities)
             .Must(x => x.Count > 0)
-            .When(x => x is not null)
+            .When(x => x.Cities is not null)
             .WithMessage(Messages.RequiredField);
 
         RuleForEach(x => x.Tags)
            .NotEmpty()
-           .When(x => x is not null)
+           .When(x => x.Tags is not null)
            .WithMessage(Messages.RequiredField);
 
         RuleFor(x => x.Tags)
             .Must(x => x.Count > 0)
-            .When(x => x is not null)
+            .When(x => x.Tags is not null)
             .WithMessage(Messages.RequiredField);
     }
 }

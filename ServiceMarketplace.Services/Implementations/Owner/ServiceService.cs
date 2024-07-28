@@ -114,6 +114,34 @@ public class ServiceService : IServiceService
         _logger.LogInformation("Successfully updated a service with ID: {ServiceId}", serviceId);
     }
 
+    public async Task ChangeCategoryAsync(Guid serviceId, Guid ownerId, ChangeCategoryRequestModel requestModel)
+    {
+        Service service = await GetServiceWithTagsAsync(serviceId, ownerId);
+        await _categoryService.ValidateSubCategoryAsync(requestModel.SubCategoryId);
+
+        using IDbContextTransaction transaction = await _applicationContext.Database.BeginTransactionAsync();
+        try
+        {
+            service.SubCategoryId = requestModel.SubCategoryId;
+            service.ModifiedOn = DateTime.UtcNow;
+            ICollection<ServiceTag> serviceTags = service.SelectedTags;
+
+            _applicationContext.ServiceTags.RemoveRange(serviceTags);
+            await AddServiceTagsAsync(requestModel.Tags, requestModel.SubCategoryId, serviceId);
+
+            await _applicationContext.SaveChangesAsync();
+            await transaction.CommitAsync();
+
+            _logger.LogInformation("Successfully change a service category Service ID: {ServiceId}", service.Id);
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
+            _logger.LogError("Failed to change service category. Transaction rolled back.");
+            throw;
+        }
+    }
+
     public async Task AddTagAsync(Guid serviceId, Guid ownerId, int tagId)
     {
         Service service = await GetServiceWithTagsAsync(serviceId, ownerId);
