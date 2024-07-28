@@ -67,5 +67,13 @@ public class CreateServiceRequestValidator : AbstractValidator<CreateServiceRequ
             .Must(x => x.Count > 0)
             .When(x => x.Tags is not null)
             .WithMessage(Messages.RequiredField);
+
+        RuleFor(x => x.ContactRequestModel)
+            .NotNull()
+            .WithMessage(Messages.RequiredField);
+
+        RuleFor(x => x.ContactRequestModel)
+            .SetValidator(x => new ManageContactRequestValidator())
+            .When(x => x.ContactRequestModel is not null);
     }
 }

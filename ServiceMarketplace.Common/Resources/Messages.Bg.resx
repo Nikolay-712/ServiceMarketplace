@@ -141,6 +141,12 @@
   <data name="FieldLength" xml:space="preserve">
     <value>Дължината на това поле трябва да бъде между {MinLength} и ​​{MaxLength} знака.</value>
   </data>
+  <data name="InvalidPhoneNumber" xml:space="preserve">
+    <value>Посочения  телефонен номер не е валиден, Моля използвайте формат : '+359 xxxx xx xxx' или '0 xxxx xx xxx'</value>
+  </data>
+  <data name="InvalidUrl" xml:space="preserve">
+    <value>Моля използвайте валиден интернет адрес</value>
+  </data>
   <data name="NotFoundCategory" xml:space="preserve">
     <value>Няма такава категория</value>
   </data>

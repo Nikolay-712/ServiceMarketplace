@@ -15,17 +15,20 @@ public class ServiceService : IServiceService
     private readonly ApplicationContext _applicationContext;
     private readonly ICategoryService _categoryService;
     private readonly ICityService _cityService;
+    private readonly IContactService _contactService;
     private readonly ILogger<ServiceService> _logger;
 
     public ServiceService(
         ApplicationContext applicationContext,
         ICategoryService categoryService,
         ICityService cityService,
+        IContactService contactService,
         ILogger<ServiceService> logger)
     {
         _applicationContext = applicationContext;
         _categoryService = categoryService;
         _cityService = cityService;
+        _contactService = contactService;
         _logger = logger;
     }
 
@@ -61,6 +64,7 @@ public class ServiceService : IServiceService
 
             await AddServiceTagsAsync(requestModel.Tags, requestModel.SubCategoryId, service.Id);
             await AddServiceCitiesAsync(requestModel.Cities, service.Id);
+            _contactService.CreateContactAsync(service.Id, requestModel.ContactRequestModel);
 
             await _applicationContext.SaveChangesAsync();
             await transaction.CommitAsync();

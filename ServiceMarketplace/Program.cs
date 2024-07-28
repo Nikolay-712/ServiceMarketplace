@@ -93,6 +93,7 @@ internal class Program
         services.AddScoped<OwnerInterfaces.IServiceService, OwnerImplementations.ServiceService>();
         services.AddScoped<OwnerInterfaces.ICategoryService, OwnerImplementations.CategoryService>();
         services.AddScoped<OwnerInterfaces.ICityService, OwnerImplementations.CityService>();
+        services.AddScoped<OwnerInterfaces.IContactService, OwnerImplementations.ContactService>();
     }
 
     private static void ConfigureRequestLocalization(IApplicationBuilder app, IConfiguration configuration)

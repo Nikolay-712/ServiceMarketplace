@@ -39,5 +39,12 @@ internal class ServiceConfiguration : IEntityTypeConfiguration<Service>
             .HasForeignKey(x => x.SubCategoryId)
             .IsRequired()
             .OnDelete(DeleteBehavior.Restrict);
+
+        service
+            .HasMany(x => x.Contacts)
+            .WithOne()
+            .HasForeignKey(x => x.ServiceId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

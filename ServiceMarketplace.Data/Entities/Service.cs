@@ -23,4 +23,6 @@ public class Service : BaseEntity
     public virtual ICollection<ServiceCity> Cities { get; set; }
 
     public virtual ICollection<ServiceTag> SelectedTags { get; set; }
+
+    public virtual ICollection<Contact> Contacts { get; set; }
 }

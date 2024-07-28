@@ -133,6 +133,24 @@ namespace ServiceMarketplace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The specified phone number is not valid, please use the format : &apos;+359 xxxx xx xxx&apos; or  &apos;0 xxxx xx xxx&apos;.
+        /// </summary>
+        public static string InvalidPhnoneNumber {
+            get {
+                return ResourceManager.GetString("InvalidPhnoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please use a valid web address.
+        /// </summary>
+        public static string InvalidUrl {
+            get {
+                return ResourceManager.GetString("InvalidUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is no such category.
         /// </summary>
         public static string NotFoundCategory {

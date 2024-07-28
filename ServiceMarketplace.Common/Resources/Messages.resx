@@ -141,6 +141,12 @@
   <data name="FieldLength" xml:space="preserve">
     <value>The length of this field should be between {MinLength} and {MaxLength} characters.</value>
   </data>
+  <data name="InvalidPhnoneNumber" xml:space="preserve">
+    <value>The specified phone number is not valid, please use the format : '+359 xxxx xx xxx' or  '0 xxxx xx xxx'</value>
+  </data>
+  <data name="InvalidUrl" xml:space="preserve">
+    <value>Please use a valid web address</value>
+  </data>
   <data name="NotFoundCategory" xml:space="preserve">
     <value>There is no such category</value>
   </data>

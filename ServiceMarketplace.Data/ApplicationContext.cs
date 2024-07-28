@@ -25,6 +25,8 @@ public class ApplicationContext : IdentityDbContext<ApplicationUser, Application
 
     public DbSet<ServiceTag> ServiceTags { get; set; }
 
+    public DbSet<Contact> Contacts { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
