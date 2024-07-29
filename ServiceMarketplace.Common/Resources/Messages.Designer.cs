@@ -61,6 +61,15 @@ namespace ServiceMarketplace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You cannot remove all contacts. The service must have at least one contact.
+        /// </summary>
+        public static string CannotRemoveAllContacts {
+            get {
+                return ResourceManager.GetString("CannotRemoveAllContacts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You cannot remove all tags. The service must have at least one tag.
         /// </summary>
         public static string CannotRemoveAllTags {
@@ -165,6 +174,15 @@ namespace ServiceMarketplace.Common.Resources {
         public static string NotFoundCity {
             get {
                 return ResourceManager.GetString("NotFoundCity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no such contact.
+        /// </summary>
+        public static string NotFoundContact {
+            get {
+                return ResourceManager.GetString("NotFoundContact", resourceCulture);
             }
         }
         
