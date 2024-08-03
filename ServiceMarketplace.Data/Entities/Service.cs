@@ -20,6 +20,10 @@ public class Service : BaseEntity
 
     public ApplicationUser Owner { get; set; }
 
+    public int OfferedAtId { get; set; }
+
+    public OfferedAt OfferedAt { get; set; }
+
     public virtual ICollection<ServiceCity> Cities { get; set; }
 
     public virtual ICollection<ServiceTag> SelectedTags { get; set; }

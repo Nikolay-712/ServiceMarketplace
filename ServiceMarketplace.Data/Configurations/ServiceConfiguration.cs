@@ -34,6 +34,13 @@ internal class ServiceConfiguration : IEntityTypeConfiguration<Service>
             .HasMaxLength(500);
 
         service
+            .HasOne(x => x.OfferedAt)
+            .WithMany(x => x.Services)
+            .HasForeignKey(x => x.OfferedAtId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Restrict);
+
+        service
             .HasOne(x => x.SubCategory)
             .WithMany(x => x.Services)
             .HasForeignKey(x => x.SubCategoryId)

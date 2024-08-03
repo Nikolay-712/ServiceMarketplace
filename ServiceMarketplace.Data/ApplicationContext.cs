@@ -27,6 +27,8 @@ public class ApplicationContext : IdentityDbContext<ApplicationUser, Application
 
     public DbSet<Contact> Contacts { get; set; }
 
+    public DbSet<OfferedAt> OfferedAt { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

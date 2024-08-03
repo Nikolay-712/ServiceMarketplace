@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ServiceMarketplace.Data;
 
@@ -11,9 +12,11 @@ using ServiceMarketplace.Data;
 namespace ServiceMarketplace.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240803055847_AddOfferedAt")]
+    partial class AddOfferedAt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -391,7 +394,7 @@ namespace ServiceMarketplace.Data.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<int>("OfferedAtId")
+                    b.Property<int?>("OfferedAtId")
                         .HasColumnType("int");
 
                     b.Property<Guid>("OwnerId")
@@ -576,11 +579,9 @@ namespace ServiceMarketplace.Data.Migrations
 
             modelBuilder.Entity("ServiceMarketplace.Data.Entities.Service", b =>
                 {
-                    b.HasOne("ServiceMarketplace.Data.Entities.OfferedAt", "OfferedAt")
+                    b.HasOne("ServiceMarketplace.Data.Entities.OfferedAt", null)
                         .WithMany("Services")
-                        .HasForeignKey("OfferedAtId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("OfferedAtId");
 
                     b.HasOne("ServiceMarketplace.Data.Entities.ApplicationUser", "Owner")
                         .WithMany("Services")
@@ -593,8 +594,6 @@ namespace ServiceMarketplace.Data.Migrations
                         .HasForeignKey("SubCategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("OfferedAt");
 
                     b.Navigation("Owner");
 
