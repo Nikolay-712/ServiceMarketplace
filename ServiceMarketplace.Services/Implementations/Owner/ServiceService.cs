@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 using ServiceMarketplace.Common.Exceptions.ClientExceptions;
+using ServiceMarketplace.Common.Extensions;
 using ServiceMarketplace.Common.Resources;
 using ServiceMarketplace.Data;
 using ServiceMarketplace.Data.Entities;
@@ -102,6 +103,75 @@ public class ServiceService : IServiceService
 
         await _applicationContext.SaveChangesAsync();
         _logger.LogInformation("Successfully updated a service with ID: {ServiceId}", serviceId);
+    }
+
+    public async Task<IReadOnlyList<ServiceResponseModel>> GetAllAsync(Guid ownerId)
+    {
+        IQueryable<Service> servicesQuery = _applicationContext.Services.Where(x => x.OwnerId == ownerId);
+        IReadOnlyList<ServiceResponseModel> services = await servicesQuery
+            .Select(x => new ServiceResponseModel(
+                x.Id,
+                x.CreatedOn.DateFormat(),
+                x.NameBg,
+                x.NameEn))
+            .ToListAsync();
+
+        return services;
+    }
+
+    public async Task<ServiceDetailsResponseModel> GetDetailsAsync(Guid ownerId, Guid serviceId)
+    {
+        Service? service = await _applicationContext.Services
+            .Include(x => x.SubCategory)
+            .Include(x => x.OfferedAt)
+            .Include(x => x.Cities).ThenInclude(x => x.City)
+            .Include(x => x.SelectedTags).ThenInclude(x => x.Tag)
+            .Include(x => x.Contacts)
+            .FirstOrDefaultAsync(x => x.OwnerId == ownerId && x.Id == serviceId);
+
+        if (service is null)
+        {
+            _logger.LogError("No service exists with this ID {ServiceId}", serviceId);
+            throw new NotFoundEntityException(Messages.NotFoundService);
+        }
+
+        ServiceDetailsResponseModel serviceDetails = new(
+            service.Id,
+            service.CreatedOn.DateFormat(),
+            service.ModifiedOn is null ? " n/a" : service.ModifiedOn.Value.DateFormat(),
+            service.NameBg,
+            service.NameEn,
+            service.DescriptionBg,
+            service.DescriptionBg,
+            new SubCategoryResponseModel(
+                service.SubCategoryId,
+                service.SubCategory.NameBg,
+                service.SubCategory.NameEn),
+            new OfferedAtResponseModel(
+                service.OfferedAtId,
+                service.OfferedAt.NameBg,
+                service.OfferedAt.NameEn),
+            service.Cities
+                .Select(c => new CityResponseModel(
+                    c.CityId,
+                    c.City.NameBg,
+                    c.City.NameEn))
+                .ToList(),
+            service.SelectedTags
+                .Select(t => new TagResponseModel(
+                    t.TagId,
+                    t.Tag.NameBg,
+                    t.Tag.NameEn))
+                .ToList(),
+            service.Contacts
+                .Select(c => new ContactResponseModel(
+                    c.Id, 
+                    c.Name, 
+                    c.PhoneNumber, 
+                    c.LocationUrl ?? "n/a"))
+                .ToList());
+
+        return serviceDetails;
     }
 
     public async Task ChangeCategoryAsync(Guid serviceId, Guid ownerId, ChangeCategoryRequestModel requestModel)
@@ -206,8 +276,8 @@ public class ServiceService : IServiceService
     {
         IReadOnlyList<OfferedAtResponseModel> options = await _applicationContext.OfferedAt
             .Select(x => new OfferedAtResponseModel(
-                x.Id, 
-                x.NameBg, 
+                x.Id,
+                x.NameBg,
                 x.NameEn))
             .ToListAsync();
 

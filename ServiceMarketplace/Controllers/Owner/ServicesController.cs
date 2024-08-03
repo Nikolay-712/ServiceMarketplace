@@ -38,6 +38,32 @@ public class ServicesController : ControllerBase
         return new ResponseContent();
     }
 
+    [HttpGet("all")]
+    [ProducesResponseType<ResponseContent<IReadOnlyList<ServiceResponseModel>>>(200)]
+    public async Task<ResponseContent<IReadOnlyList<ServiceResponseModel>>> GetAllAsync()
+    {
+        Guid ownerId = Guid.Parse("CEFAD0F7-678E-4769-B0C6-3943BF78A59D");
+        IReadOnlyList<ServiceResponseModel> services = await _serviceService.GetAllAsync(ownerId);
+
+        return new ResponseContent<IReadOnlyList<ServiceResponseModel>>
+        {
+            Result = services
+        };
+    }
+
+    [HttpGet("details/{serviceId}")]
+    [ProducesResponseType<ResponseContent<ServiceDetailsResponseModel>>(200)]
+    public async Task<ResponseContent<ServiceDetailsResponseModel>> GetDetailsAsync(Guid serviceId)
+    {
+        Guid ownerId = Guid.Parse("CEFAD0F7-678E-4769-B0C6-3943BF78A59D");
+        ServiceDetailsResponseModel serviceDetails = await _serviceService.GetDetailsAsync(ownerId, serviceId);
+
+        return new ResponseContent<ServiceDetailsResponseModel>
+        {
+            Result = serviceDetails
+        };
+    }
+
     [HttpPatch("change-category/{serviceId}")]
     [ProducesResponseType<ResponseContent>(200)]
     public async Task<ResponseContent> ChangeCategoryAsync([FromRoute] Guid serviceId, ChangeCategoryRequestModel requestModel)

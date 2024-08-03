@@ -9,6 +9,10 @@ public interface IServiceService
 
     Task UpdateAsync(Guid serviceId, Guid ownerId, UpdateServiceRequestModel requestModel);
 
+    Task<IReadOnlyList<ServiceResponseModel>> GetAllAsync(Guid ownerId);
+
+    Task<ServiceDetailsResponseModel> GetDetailsAsync(Guid ownerId, Guid serviceId);
+
     Task ChangeCategoryAsync(Guid serviceId, Guid ownerId, ChangeCategoryRequestModel requestModel);
 
     Task AddTagAsync(Guid serviceId, Guid ownerId, int tagId);
