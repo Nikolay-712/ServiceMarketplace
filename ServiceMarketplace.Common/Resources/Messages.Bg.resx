@@ -171,6 +171,9 @@
   <data name="NotFoundTag" xml:space="preserve">
     <value>Няма такъв таг</value>
   </data>
+  <data name="OfferNotSupporte" xml:space="preserve">
+    <value>Oпцията, която сте избрали не се поддържа</value>
+  </data>
   <data name="RequiredField" xml:space="preserve">
     <value>Полето е задължително</value>
   </data>

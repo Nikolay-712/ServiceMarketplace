@@ -6,6 +6,7 @@ public record CreateServiceRequestModel(
     string DescriptionBg,
     string DescriptionEn,
     Guid SubCategoryId,
+    int OfferedAtId,
     HashSet<Guid> Cities,
     HashSet<int> Tags,
     ManageContactRequestModel ContactRequestModel);

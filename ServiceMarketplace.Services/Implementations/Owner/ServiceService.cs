@@ -6,6 +6,7 @@ using ServiceMarketplace.Common.Resources;
 using ServiceMarketplace.Data;
 using ServiceMarketplace.Data.Entities;
 using ServiceMarketplace.Models.Request;
+using ServiceMarketplace.Models.Response;
 using ServiceMarketplace.Services.Interfaces.Owner;
 
 namespace ServiceMarketplace.Services.Implementations.Owner;
@@ -34,17 +35,8 @@ public class ServiceService : IServiceService
 
     public async Task CreateAsync(Guid ownerId, CreateServiceRequestModel requestModel)
     {
-        bool existsServiceName = await _applicationContext.Services
-            .AnyAsync(x => (x.NameBg == requestModel.NameBg || x.NameEn == requestModel.NameEn) && x.OwnerId == ownerId);
-
-        if (existsServiceName)
-        {
-            _logger.LogError("There is a service registered with this name: {ServiceNameBg}/{ServiceNameEn}",
-                requestModel.NameBg,
-                requestModel.NameEn);
-            throw new ExistsServiceNameException(Messages.ExistsServiceName);
-        }
-
+        await ValidateExistsServiceNameAsync(requestModel.NameBg, requestModel.NameEn, ownerId);
+        await ValidateOfferedAtAsync(requestModel.OfferedAtId);
         await _categoryService.ValidateSubCategoryAsync(requestModel.SubCategoryId);
         using IDbContextTransaction transaction = await _applicationContext.Database.BeginTransactionAsync();
 
@@ -58,6 +50,7 @@ public class ServiceService : IServiceService
                 DescriptionEn = requestModel.DescriptionEn,
                 SubCategoryId = requestModel.SubCategoryId,
                 OwnerId = ownerId,
+                OfferedAtId = requestModel.OfferedAtId,
             };
 
             _applicationContext.Services.Add(service);
@@ -88,24 +81,17 @@ public class ServiceService : IServiceService
             throw new NotFoundEntityException(Messages.NotFoundService);
         }
 
+        await ValidateOfferedAtAsync(requestModel.OfferedAtId);
         if (service.NameEn != requestModel.NameEn || service.NameBg != requestModel.NameBg)
         {
-            bool existsServiceName = await _applicationContext.Services
-                .AnyAsync(x => (x.NameBg == requestModel.NameBg || x.NameEn == requestModel.NameEn) && x.OwnerId == ownerId);
-
-            if (existsServiceName)
-            {
-                _logger.LogError("There is a service registered with this name: {ServiceNameBg}/{ServiceNameEn}",
-                    requestModel.NameBg,
-                    requestModel.NameEn);
-                throw new ExistsServiceNameException(Messages.ExistsServiceName);
-            }
+            await ValidateExistsServiceNameAsync(requestModel.NameBg, requestModel.NameEn, ownerId);
         }
 
         service.NameBg = requestModel.NameBg;
         service.NameEn = requestModel.NameEn;
         service.DescriptionBg = requestModel.DescriptionEn;
         service.DescriptionEn = requestModel.DescriptionEn;
+        service.OfferedAtId = requestModel.OfferedAtId;
         service.ModifiedOn = DateTime.UtcNow;
 
         if (requestModel.Cities is not null)
@@ -216,6 +202,18 @@ public class ServiceService : IServiceService
         _logger.LogInformation("Successfully remove a city for service with ID: {ServiceId} and City ID {CityId}", serviceId, cityId);
     }
 
+    public async Task<IReadOnlyList<OfferedAtResponseModel>> GetOfferedAtOptionsAsync()
+    {
+        IReadOnlyList<OfferedAtResponseModel> options = await _applicationContext.OfferedAt
+            .Select(x => new OfferedAtResponseModel(
+                x.Id, 
+                x.NameBg, 
+                x.NameEn))
+            .ToListAsync();
+
+        return options;
+    }
+
     private async Task AddServiceTagsAsync(HashSet<int> tags, Guid subCategoryId, Guid serviceId)
     {
         foreach (int tagId in tags)
@@ -272,5 +270,29 @@ public class ServiceService : IServiceService
         }
 
         return service;
+    }
+
+    private async Task ValidateOfferedAtAsync(int offeredAtId)
+    {
+        bool isValidOffered = await _applicationContext.OfferedAt.AnyAsync(x => x.Id == offeredAtId);
+        if (!isValidOffered)
+        {
+            _logger.LogError("Offer is not supported Offer ID: {OfferId}", offeredAtId);
+            throw new NotFoundEntityException(Messages.OfferNotSupporte);
+        }
+    }
+
+    private async Task ValidateExistsServiceNameAsync(string nameBg, string nameEn, Guid ownerId)
+    {
+        bool existsServiceName = await _applicationContext.Services
+            .AnyAsync(x => (x.NameBg == nameBg || x.NameEn == nameEn) && x.OwnerId == ownerId);
+
+        if (existsServiceName)
+        {
+            _logger.LogError("There is a service registered with this name: {ServiceNameBg}/{ServiceNameEn}",
+                nameBg,
+                nameEn);
+            throw new ExistsServiceNameException(Messages.ExistsServiceName);
+        }
     }
 }

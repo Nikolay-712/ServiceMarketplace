@@ -1,4 +1,5 @@
 ﻿using ServiceMarketplace.Models.Request;
+using ServiceMarketplace.Models.Response;
 
 namespace ServiceMarketplace.Services.Interfaces.Owner;
 
@@ -16,4 +17,5 @@ public interface IServiceService
 
     Task RemoveCityAsync(Guid serviceId, Guid ownerId, Guid cityId);
 
+    Task<IReadOnlyList<OfferedAtResponseModel>> GetOfferedAtOptionsAsync();
 }

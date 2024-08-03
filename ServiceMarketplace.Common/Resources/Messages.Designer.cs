@@ -223,6 +223,15 @@ namespace ServiceMarketplace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The option you have chosen to offer is not supported.
+        /// </summary>
+        public static string OfferNotSupporte {
+            get {
+                return ResourceManager.GetString("OfferNotSupporte", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Field required.
         /// </summary>
         public static string RequiredField {

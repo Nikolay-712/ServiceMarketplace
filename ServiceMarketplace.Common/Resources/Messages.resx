@@ -171,6 +171,9 @@
   <data name="NotFoundTag" xml:space="preserve">
     <value>There is no such tag</value>
   </data>
+  <data name="OfferNotSupporte" xml:space="preserve">
+    <value>The option you have chosen to offer is not supported</value>
+  </data>
   <data name="RequiredField" xml:space="preserve">
     <value>Field required</value>
   </data>

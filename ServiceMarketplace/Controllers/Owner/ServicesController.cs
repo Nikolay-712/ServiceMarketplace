@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ServiceMarketplace.Data.Entities;
 using ServiceMarketplace.Models;
 using ServiceMarketplace.Models.Request;
-using ServiceMarketplace.Services.Implementations.Owner;
+using ServiceMarketplace.Models.Response;
 using ServiceMarketplace.Services.Interfaces.Owner;
 
 namespace ServiceMarketplace.Controllers.Owner;
@@ -77,5 +76,16 @@ public class ServicesController : ControllerBase
         await _serviceService.RemoveCityAsync(serviceId, ownerId, cityId);
 
         return new ResponseContent();
+    }
+
+    [HttpGet("offered-at")]
+    [ProducesResponseType<ResponseContent<IReadOnlyList<OfferedAtResponseModel>>>(200)]
+    public async Task<ResponseContent<IReadOnlyList<OfferedAtResponseModel>>> GetAllOptionsAsync()
+    {
+        IReadOnlyList<OfferedAtResponseModel> options = await _serviceService.GetOfferedAtOptionsAsync();
+        return new ResponseContent<IReadOnlyList<OfferedAtResponseModel>>
+        {
+            Result = options
+        };
     }
 }

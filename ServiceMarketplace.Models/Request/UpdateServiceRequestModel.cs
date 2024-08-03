@@ -4,5 +4,6 @@ public record UpdateServiceRequestModel(
     string NameBg,
     string NameEn,
     string DescriptionBg,
-    string DescriptionEn,
+    string DescriptionEn, 
+    int OfferedAtId,
     HashSet<Guid>? Cities);

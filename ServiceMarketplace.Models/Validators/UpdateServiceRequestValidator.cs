@@ -40,6 +40,10 @@ public class UpdateServiceRequestValidator : AbstractValidator<UpdateServiceRequ
             .Length(15, 500)
             .WithMessage(Messages.FieldLength);
 
+        RuleFor(x => x.OfferedAtId)
+            .NotEmpty()
+            .WithMessage(Messages.RequiredField);
+
         RuleFor(x => x.Cities)
             .Must(x => x.Count > 0)
             .When(x => x.Cities is not null)
