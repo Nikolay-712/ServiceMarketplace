@@ -6,6 +6,7 @@ using ServiceMarketplace.Common.Resources;
 using ServiceMarketplace.Data;
 using ServiceMarketplace.Data.Entities;
 using ServiceMarketplace.Models;
+using ServiceMarketplace.Models.Extensions;
 using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Models.Response;
 using ServiceMarketplace.Services.Interfaces.Administration;
@@ -56,12 +57,7 @@ public class CategoryService : ICategoryService
             .Take(categoryFilter.ItemsPerPage);
 
         IReadOnlyList<CategoryResponseModel> categories = await categoriesQuery
-              .Select(x => new CategoryResponseModel(
-                  x.Id,
-                  x.NameBg,
-                  x.NameEn,
-                  x.DescriptionBg,
-                  x.DescriptionEn))
+              .Select(x => x.ToCategoryResponseModel())
               .ToListAsync();
 
         return new PaginationResponseModel<CategoryResponseModel>
@@ -88,16 +84,7 @@ public class CategoryService : ICategoryService
         IQueryable<SubCategory> subCategoriesQuery = _applicationContext.SubCategories.Where(x => x.CategoryId == categoryId);
         PaginationResponseModel<SubCategoryResponseModel> subCategoriesPagination = await GetSubCategoriesWithPaginationAsync(subCategoriesQuery, categoryFilter);
 
-        CategoryDetailsResponseModel categoryDetails = new(
-            category.NameBg,
-            category.NameEn,
-            category.DescriptionBg,
-            category.DescriptionEn,
-            category.CreatedOn.DateFormat(),
-            category.ModifiedOn is null
-                ? string.Empty
-                : category.ModifiedOn.Value.DateFormat(),
-            subCategoriesPagination);
+        CategoryDetailsResponseModel categoryDetails = category.ToCategoryDetailsResponseModel(subCategoriesPagination);
 
         return categoryDetails;
     }
@@ -197,23 +184,10 @@ public class CategoryService : ICategoryService
             throw new NotFoundEntityException(Messages.NotFoundCategory);
         }
 
-        SubCategoryDetailsResponseModel subCategoryDetails = new(
-            subCategory.Id,
-            subCategory.NameBg,
-            subCategory.NameEn,
-            subCategory.DescriptionBg,
-            subCategory.DescriptionEn,
-            subCategory.CreatedOn.DateFormat(),
-            subCategory.ModifiedOn is null
-                ? string.Empty
-                : subCategory.ModifiedOn.Value.DateFormat(),
-            subCategory.Tags
-            .Select(t => new TagResponseModel(
-                t.Id,
-                t.NameBg,
-                t.NameEn))
-            .ToList());
-
+        IReadOnlyList<TagResponseModel> tags = subCategory.Tags
+            .Select(x => x.ToTagResponseModel())
+            .ToList();
+        SubCategoryDetailsResponseModel subCategoryDetails = subCategory.ToSubCategoryDetailsResponseModel(tags);
 
         return subCategoryDetails;
     }
@@ -390,10 +364,7 @@ public class CategoryService : ICategoryService
             .Take(categoryFilter.ItemsPerPage);
 
         IReadOnlyList<SubCategoryResponseModel> subCategories = await subCategoriesQuery
-            .Select(x => new SubCategoryResponseModel(
-                x.Id,
-                x.NameBg,
-                x.NameEn))
+            .Select(x => x.ToSubCategoryResponseModel())
             .ToListAsync();
 
         PaginationResponseModel<SubCategoryResponseModel> subCategoriesPagination = new()

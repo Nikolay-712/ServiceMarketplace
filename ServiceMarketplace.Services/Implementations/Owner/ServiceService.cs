@@ -6,6 +6,7 @@ using ServiceMarketplace.Common.Extensions;
 using ServiceMarketplace.Common.Resources;
 using ServiceMarketplace.Data;
 using ServiceMarketplace.Data.Entities;
+using ServiceMarketplace.Models.Extensions;
 using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Models.Response;
 using ServiceMarketplace.Services.Interfaces.Owner;
@@ -109,11 +110,7 @@ public class ServiceService : IServiceService
     {
         IQueryable<Service> servicesQuery = _applicationContext.Services.Where(x => x.OwnerId == ownerId);
         IReadOnlyList<ServiceResponseModel> services = await servicesQuery
-            .Select(x => new ServiceResponseModel(
-                x.Id,
-                x.CreatedOn.DateFormat(),
-                x.NameBg,
-                x.NameEn))
+            .Select(x => x.ToServiceResponseModel())
             .ToListAsync();
 
         return services;
@@ -135,41 +132,7 @@ public class ServiceService : IServiceService
             throw new NotFoundEntityException(Messages.NotFoundService);
         }
 
-        ServiceDetailsResponseModel serviceDetails = new(
-            service.Id,
-            service.CreatedOn.DateFormat(),
-            service.ModifiedOn is null ? " n/a" : service.ModifiedOn.Value.DateFormat(),
-            service.NameBg,
-            service.NameEn,
-            service.DescriptionBg,
-            service.DescriptionBg,
-            new SubCategoryResponseModel(
-                service.SubCategoryId,
-                service.SubCategory.NameBg,
-                service.SubCategory.NameEn),
-            new OfferedAtResponseModel(
-                service.OfferedAtId,
-                service.OfferedAt.NameBg,
-                service.OfferedAt.NameEn),
-            service.Cities
-                .Select(c => new CityResponseModel(
-                    c.CityId,
-                    c.City.NameBg,
-                    c.City.NameEn))
-                .ToList(),
-            service.SelectedTags
-                .Select(t => new TagResponseModel(
-                    t.TagId,
-                    t.Tag.NameBg,
-                    t.Tag.NameEn))
-                .ToList(),
-            service.Contacts
-                .Select(c => new ContactResponseModel(
-                    c.Id, 
-                    c.Name, 
-                    c.PhoneNumber, 
-                    c.LocationUrl ?? "n/a"))
-                .ToList());
+        ServiceDetailsResponseModel serviceDetails = service.ToServiceDetailsResponseModel();
 
         return serviceDetails;
     }

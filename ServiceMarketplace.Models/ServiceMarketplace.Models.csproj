@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ServiceMarketplace.Common\ServiceMarketplace.Common.csproj" />
+    <ProjectReference Include="..\ServiceMarketplace.Data\ServiceMarketplace.Data.csproj" />
   </ItemGroup>
 
 </Project>

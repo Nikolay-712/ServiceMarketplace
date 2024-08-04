@@ -5,6 +5,7 @@ using ServiceMarketplace.Common.Resources;
 using ServiceMarketplace.Data;
 using ServiceMarketplace.Data.Entities;
 using ServiceMarketplace.Models;
+using ServiceMarketplace.Models.Extensions;
 using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Models.Response;
 using ServiceMarketplace.Services.Interfaces.Administration;
@@ -66,10 +67,7 @@ public class CityService : ICityService
             .Take(cityFilter.ItemsPerPage);
 
         IReadOnlyList<CityResponseModel> cities = await citiesQuery
-            .Select(x => new CityResponseModel(
-                x.Id,
-                x.NameBg,
-                x.NameEn))
+            .Select(x => x.ToCityResponseModel())
             .ToListAsync();
 
         return new PaginationResponseModel<CityResponseModel>

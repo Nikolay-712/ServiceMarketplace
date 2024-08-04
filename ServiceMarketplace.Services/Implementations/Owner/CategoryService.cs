@@ -5,6 +5,7 @@ using ServiceMarketplace.Common.Extensions;
 using ServiceMarketplace.Common.Resources;
 using ServiceMarketplace.Data;
 using ServiceMarketplace.Data.Entities;
+using ServiceMarketplace.Models.Extensions;
 using ServiceMarketplace.Models.Response;
 using ServiceMarketplace.Services.Interfaces.Owner;
 
@@ -26,32 +27,19 @@ public class CategoryService : ICategoryService
         IReadOnlyList<CategoryResponseModel> categories = await _applicationContext.Categories
             .OrderBy(x => x.NameBg)
             .ThenBy(x => x.NameEn)
-              .Select(x => new CategoryResponseModel(
-                  x.Id,
-                  x.NameBg,
-                  x.NameEn,
-                  x.DescriptionBg,
-                  x.DescriptionEn))
-              .ToListAsync();
+            .Select(x => x.ToCategoryResponseModel())
+            .ToListAsync();
 
         return categories;
     }
 
     public async Task<IReadOnlyList<SubCategoryDetailsResponseModel>> GetAllSubCategoriesAsync(Guid categoryId)
     {
-        IQueryable<SubCategory> subCategoriesQuery = _applicationContext.SubCategories.Where(x => x.CategoryId == categoryId).Include(x => x.Tags);
+        IQueryable<SubCategory> subCategoriesQuery = _applicationContext.SubCategories.Where(x => x.CategoryId == categoryId);
 
         IReadOnlyList<SubCategoryDetailsResponseModel> subCategories = await subCategoriesQuery
             .OrderBy(x => x.NameBg)
-            .Select(x => new SubCategoryDetailsResponseModel(
-                x.Id,
-                x.NameBg,
-                x.NameEn,
-                x.DescriptionBg,
-                x.DescriptionEn,
-                x.CreatedOn.DateFormat(),
-                x.ModifiedOn == null ? string.Empty : x.ModifiedOn.Value.DateFormat(),
-               new List<TagResponseModel>()))
+            .Select(x => x.ToSubCategoryDetailsResponseModel(new List<TagResponseModel>()))
             .ToListAsync();
 
         return subCategories;
@@ -62,10 +50,7 @@ public class CategoryService : ICategoryService
         IReadOnlyList<TagResponseModel> tags = await _applicationContext.Tags
              .Where(x => x.SubCategoryId == subCategoryId)
              .OrderBy(x => x.NameBg)
-             .Select(x => new TagResponseModel(
-                 x.Id,
-                 x.NameBg,
-                 x.NameEn))
+             .Select(x => x.ToTagResponseModel())
              .ToListAsync();
 
         return tags;

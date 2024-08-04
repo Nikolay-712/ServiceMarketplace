@@ -4,6 +4,7 @@ using ServiceMarketplace.Common.Exceptions.ClientExceptions;
 using ServiceMarketplace.Common.Resources;
 using ServiceMarketplace.Data;
 using ServiceMarketplace.Data.Entities;
+using ServiceMarketplace.Models.Extensions;
 using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Models.Response;
 using ServiceMarketplace.Services.Interfaces.Owner;
@@ -58,11 +59,7 @@ public class ContactService : IContactService
         IQueryable<Contact> contactsQuery = _applicationContext.Contacts.Where(x => x.ServiceId == serviceId);
         IReadOnlyList<ContactResponseModel> contacts = await contactsQuery
             .OrderBy(x => x.Id)
-            .Select(x => new ContactResponseModel(
-                x.Id,
-                x.Name,
-                x.PhoneNumber,
-                x.LocationUrl ?? "n/a"))
+            .Select(x => x.ToContactResponseModel())
             .ToListAsync();
 
         return contacts;

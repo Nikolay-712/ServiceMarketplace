@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using ServiceMarketplace.Common.Exceptions.ClientExceptions;
 using ServiceMarketplace.Common.Resources;
 using ServiceMarketplace.Data;
+using ServiceMarketplace.Models.Extensions;
 using ServiceMarketplace.Models.Response;
 using ServiceMarketplace.Services.Interfaces.Owner;
 
@@ -32,10 +33,7 @@ public class CityService : ICityService
     public async Task<IReadOnlyList<CityResponseModel>> GetAllCitiesAsync()
     {
         IReadOnlyList<CityResponseModel> cities = await _applicationContext.Cities
-            .Select(x => new CityResponseModel(
-                x.Id,
-                x.NameBg,
-                x.NameEn))
+            .Select(x => x.ToCityResponseModel())
             .ToListAsync();
 
         return cities;
