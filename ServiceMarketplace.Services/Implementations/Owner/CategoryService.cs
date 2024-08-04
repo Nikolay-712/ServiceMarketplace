@@ -9,6 +9,8 @@ using ServiceMarketplace.Models.Extensions;
 using ServiceMarketplace.Models.Response;
 using ServiceMarketplace.Services.Interfaces.Owner;
 
+using static ServiceMarketplace.Models.Response.CategoryResponseModels;
+
 namespace ServiceMarketplace.Services.Implementations.Owner;
 
 public class CategoryService : ICategoryService

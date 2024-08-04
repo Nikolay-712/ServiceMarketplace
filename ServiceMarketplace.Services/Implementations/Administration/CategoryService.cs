@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ServiceMarketplace.Common.Exceptions.ClientExceptions;
-using ServiceMarketplace.Common.Extensions;
 using ServiceMarketplace.Common.Resources;
 using ServiceMarketplace.Data;
 using ServiceMarketplace.Data.Entities;
@@ -10,6 +9,8 @@ using ServiceMarketplace.Models.Extensions;
 using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Models.Response;
 using ServiceMarketplace.Services.Interfaces.Administration;
+
+using static ServiceMarketplace.Models.Response.CategoryResponseModels;
 
 namespace ServiceMarketplace.Services.Implementations.Administration;
 

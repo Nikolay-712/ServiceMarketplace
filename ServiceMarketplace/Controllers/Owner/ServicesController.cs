@@ -4,6 +4,8 @@ using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Models.Response;
 using ServiceMarketplace.Services.Interfaces.Owner;
 
+using static ServiceMarketplace.Models.Response.ServiceResponseModels;
+
 namespace ServiceMarketplace.Controllers.Owner;
 
 //[Authorize(Roles = "Owner")]

@@ -1,8 +1,9 @@
 ﻿using ServiceMarketplace.Data.Entities;
 using ServiceMarketplace.Models.Response;
 using ServiceMarketplace.Common.Extensions;
-
 namespace ServiceMarketplace.Models.Extensions;
+
+using static ServiceMarketplace.Models.Response.CategoryResponseModels;
 
 public static class CategoryMappingExtensions
 {

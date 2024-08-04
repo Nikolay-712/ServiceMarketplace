@@ -1,6 +1,6 @@
 ﻿using ServiceMarketplace.Models.Request;
-using ServiceMarketplace.Models.Response;
-using System.Threading.Tasks;
+
+using static ServiceMarketplace.Models.Response.ServiceResponseModels;
 
 namespace ServiceMarketplace.Services.Interfaces.Owner;
 

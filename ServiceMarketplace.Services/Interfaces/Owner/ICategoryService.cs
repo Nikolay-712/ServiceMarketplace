@@ -1,5 +1,7 @@
 ﻿using ServiceMarketplace.Models.Response;
 
+using static ServiceMarketplace.Models.Response.CategoryResponseModels;
+
 namespace ServiceMarketplace.Services.Interfaces.Owner;
 
 public interface ICategoryService

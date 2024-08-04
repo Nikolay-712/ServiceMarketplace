@@ -2,6 +2,8 @@
 using ServiceMarketplace.Models.Response;
 using ServiceMarketplace.Common.Extensions;
 
+using static ServiceMarketplace.Models.Response.ServiceResponseModels;
+
 namespace ServiceMarketplace.Models.Extensions;
 
 public static class ServiceMappingExtensions

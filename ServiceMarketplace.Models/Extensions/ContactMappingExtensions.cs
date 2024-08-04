@@ -1,5 +1,6 @@
 ﻿using ServiceMarketplace.Data.Entities;
-using ServiceMarketplace.Models.Response;
+
+using static ServiceMarketplace.Models.Response.ServiceResponseModels;
 
 namespace ServiceMarketplace.Models.Extensions;
 
