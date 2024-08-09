@@ -20,4 +20,8 @@ public class ApplicationUser : IdentityUser<Guid>
     public virtual ICollection<IdentityUserLogin<Guid>> Logins { get; set; }
 
     public virtual ICollection<Service> Services { get; set; }
+
+    public virtual ICollection<Rating> Ratings { get; set; }
+
+    public virtual ICollection<OwnerComment> OwnerComments { get; set; }
 }

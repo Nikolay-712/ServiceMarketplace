@@ -29,6 +29,10 @@ public class ApplicationContext : IdentityDbContext<ApplicationUser, Application
 
     public DbSet<OfferedAt> OfferedAt { get; set; }
 
+    public DbSet<Rating> Ratings { get; set; }
+
+    public DbSet<OwnerComment> OwnerComments { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

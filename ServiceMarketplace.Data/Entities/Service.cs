@@ -29,4 +29,6 @@ public class Service : BaseEntity
     public virtual ICollection<ServiceTag> SelectedTags { get; set; }
 
     public virtual ICollection<Contact> Contacts { get; set; }
+
+    public virtual ICollection<Rating> Ratings { get; set; }
 }
