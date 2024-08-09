@@ -151,6 +151,15 @@ namespace ServiceMarketplace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The value you selected is not valid.
+        /// </summary>
+        public static string InvalidRatingValue {
+            get {
+                return ResourceManager.GetString("InvalidRatingValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please use a valid web address.
         /// </summary>
         public static string InvalidUrl {
@@ -237,6 +246,15 @@ namespace ServiceMarketplace.Common.Resources {
         public static string RequiredField {
             get {
                 return ResourceManager.GetString("RequiredField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value must be between {MinValue} - {MaxValue}.
+        /// </summary>
+        public static string ValueRange {
+            get {
+                return ResourceManager.GetString("ValueRange", resourceCulture);
             }
         }
     }

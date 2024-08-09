@@ -6,7 +6,7 @@ public class Rating : BaseEntity
 
     public int Value { get; set; }
 
-    public string Comment { get; set; }
+    public string? Comment { get; set; }
 
     public Guid ServiceId { get; set; }
 
@@ -14,7 +14,7 @@ public class Rating : BaseEntity
 
     public ApplicationUser User { get; set; }
 
-    public int OwnerCommentId { get; set; }
+    public int? OwnerCommentId { get; set; }
 
-    public OwnerComment OwnerComment { get; set; }
+    public OwnerComment? OwnerComment { get; set; }
 }

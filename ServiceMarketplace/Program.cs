@@ -17,6 +17,8 @@ using AdministrationInterfaces = ServiceMarketplace.Services.Interfaces.Administ
 using AdministrationImplementations = ServiceMarketplace.Services.Implementations.Administration;
 using OwnerInterfaces = ServiceMarketplace.Services.Interfaces.Owner;
 using OwnerImplementations = ServiceMarketplace.Services.Implementations.Owner;
+using ServiceMarketplace.Services.Interfaces.Users;
+using ServiceMarketplace.Services.Implementations.Users;
 
 internal class Program
 {
@@ -94,6 +96,10 @@ internal class Program
         services.AddScoped<OwnerInterfaces.ICategoryService, OwnerImplementations.CategoryService>();
         services.AddScoped<OwnerInterfaces.ICityService, OwnerImplementations.CityService>();
         services.AddScoped<OwnerInterfaces.IContactService, OwnerImplementations.ContactService>();
+
+        //User area
+        services.AddScoped<IRatingService, RatingService>();
+        services.AddScoped<IServiceService, ServiceService>();
     }
 
     private static void ConfigureRequestLocalization(IApplicationBuilder app, IConfiguration configuration)

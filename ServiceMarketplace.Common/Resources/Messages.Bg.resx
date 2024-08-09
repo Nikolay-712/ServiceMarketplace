@@ -147,6 +147,9 @@
   <data name="InvalidPhoneNumber" xml:space="preserve">
     <value>Посочения  телефонен номер не е валиден, Моля използвайте формат : '+359 xxxx xx xxx' или '0 xxxx xx xxx'</value>
   </data>
+  <data name="InvalidRatingValue" xml:space="preserve">
+    <value>Стойността която сте избрали не е валидна</value>
+  </data>
   <data name="InvalidUrl" xml:space="preserve">
     <value>Моля използвайте валиден интернет адрес</value>
   </data>
@@ -176,5 +179,8 @@
   </data>
   <data name="RequiredField" xml:space="preserve">
     <value>Полето е задължително</value>
+  </data>
+  <data name="ValueRange" xml:space="preserve">
+    <value>Стойността трябва да бъде между {MinValue} - {MaxValue}</value>
   </data>
 </root>
