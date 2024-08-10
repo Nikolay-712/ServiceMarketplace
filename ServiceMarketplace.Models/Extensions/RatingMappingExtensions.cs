@@ -16,6 +16,7 @@ public static class RatingMappingExtensions
     public static UserVoteResponseModel ToUserVoteResponseModel(this Rating rating) 
         => new (rating.Id,
                 rating.Value,
+                rating.User.UserName!,
                 rating.CreatedOn.DateFormat(),
                 rating.ModifiedOn?.DateFormat(),
                 rating.Comment,

@@ -133,7 +133,7 @@ public class ServiceService : IServiceService
             throw new NotFoundEntityException(Messages.NotFoundService);
         }
 
-        ServiceDetailsResponseModel serviceDetails = service.ToServiceDetailsResponseModel();
+        ServiceDetailsResponseModel serviceDetails = service.ToServiceDetailsResponseModel(null);
 
         return serviceDetails;
     }

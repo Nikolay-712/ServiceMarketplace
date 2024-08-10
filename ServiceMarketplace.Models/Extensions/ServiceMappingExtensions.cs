@@ -14,7 +14,7 @@ public static class ServiceMappingExtensions
                service.NameBg,
                service.NameEn);
 
-    public static ServiceDetailsResponseModel ToServiceDetailsResponseModel(this Service service)
+    public static ServiceDetailsResponseModel ToServiceDetailsResponseModel(this Service service, RatingResponseModel ratings)
         => new(
             service.Id,
             service.CreatedOn.DateFormat(),
@@ -27,7 +27,8 @@ public static class ServiceMappingExtensions
             service.OfferedAt.ToOfferedAtResponseModel(),
             service.Cities.Select(c => c.City.ToCityResponseModel()).ToList(),
             service.SelectedTags.Select(t => t.Tag.ToTagResponseModel()).ToList(),
-            service.Contacts.Select(c => c.ToContactResponseModel()).ToList());
+            service.Contacts.Select(c => c.ToContactResponseModel()).ToList(),
+            ratings);
 
     public static OfferedAtResponseModel ToOfferedAtResponseModel(this OfferedAt offeredAt)
         => new(offeredAt.Id,
