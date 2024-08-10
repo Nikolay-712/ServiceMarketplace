@@ -1,11 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ServiceMarketplace.Common.Exceptions.ClientExceptions;
+using ServiceMarketplace.Common.Extensions;
 using ServiceMarketplace.Common.Resources;
 using ServiceMarketplace.Data;
 using ServiceMarketplace.Data.Entities;
+using ServiceMarketplace.Models.Extensions;
 using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Services.Interfaces.Users;
+
+using static ServiceMarketplace.Models.Response.RatingResponseModels;
 
 namespace ServiceMarketplace.Services.Implementations.Users;
 
@@ -63,5 +67,18 @@ public class RatingService : IRatingService
         await _applicationContext.SaveChangesAsync();
     }
 
+    public async Task<UserVoteResponseModel?> GetUserVoteForServiceAsync(Guid userId, Guid serviceId)
+    {
+        Rating? rating = await _applicationContext.Ratings
+            .Include(x => x.OwnerComment)
+            .FirstOrDefaultAsync(x => x.UserId == userId && x.ServiceId == serviceId);
 
+        if (rating is null)
+        {
+            return null;
+        }
+
+        UserVoteResponseModel userVote = rating.ToUserVoteResponseModel();
+        return userVote;
+    }
 }

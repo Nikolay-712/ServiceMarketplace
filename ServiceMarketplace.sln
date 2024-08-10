@@ -5,15 +5,15 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceMarketplace", "ServiceMarketplace\ServiceMarketplace.csproj", "{8CAED589-9063-4641-9B53-3D810DFF6736}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceMarketplace.Common", "ServiceMarketplace.Common\ServiceMarketplace.Common.csproj", "{58093FA7-477E-440B-90C0-FD4DBF6FB581}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceMarketplace.Common", "ServiceMarketplace.Common\ServiceMarketplace.Common.csproj", "{58093FA7-477E-440B-90C0-FD4DBF6FB581}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceMarketplace.Infrastructure", "ServiceMarketplace.Infrastructure\ServiceMarketplace.Infrastructure.csproj", "{2B92F971-0FBB-42A1-9331-E2890EB2845D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceMarketplace.Infrastructure", "ServiceMarketplace.Infrastructure\ServiceMarketplace.Infrastructure.csproj", "{2B92F971-0FBB-42A1-9331-E2890EB2845D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceMarketplace.Models", "ServiceMarketplace.Models\ServiceMarketplace.Models.csproj", "{62C4B047-2F1B-42A7-ABAC-9AB1D7675D1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceMarketplace.Models", "ServiceMarketplace.Models\ServiceMarketplace.Models.csproj", "{62C4B047-2F1B-42A7-ABAC-9AB1D7675D1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceMarketplace.Data", "ServiceMarketplace.Data\ServiceMarketplace.Data.csproj", "{E48870FF-5D23-4DE2-AA98-3BB4528BFD68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceMarketplace.Data", "ServiceMarketplace.Data\ServiceMarketplace.Data.csproj", "{E48870FF-5D23-4DE2-AA98-3BB4528BFD68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceMarketplace.Services", "ServiceMarketplace.Services\ServiceMarketplace.Services.csproj", "{AE32ECA9-909D-4A2D-BB92-4895A8998185}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceMarketplace.Services", "ServiceMarketplace.Services\ServiceMarketplace.Services.csproj", "{AE32ECA9-909D-4A2D-BB92-4895A8998185}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

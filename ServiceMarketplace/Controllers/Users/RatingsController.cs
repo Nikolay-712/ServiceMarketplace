@@ -4,6 +4,8 @@ using ServiceMarketplace.Models;
 using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Services.Interfaces.Users;
 
+using static ServiceMarketplace.Models.Response.RatingResponseModels;
+
 namespace ServiceMarketplace.Controllers.Users;
 
 //[Authorize]
@@ -26,5 +28,18 @@ public class RatingsController : ControllerBase
 
         await _ratingService.AddOrUpdateRatingAsync(userId, requestModel);
         return new ResponseContent();
+    }
+
+    [HttpGet("{serviceId}")]
+    [ProducesResponseType<ResponseContent<UserVoteResponseModel>>(200)]
+    public async Task<ResponseContent<UserVoteResponseModel?>> GetUserVoteForServiceAsync(Guid serviceId)
+    {
+        Guid userId = Guid.Parse("CEFAD0F7-678E-4769-B0C6-3943BF78A59D");
+
+        UserVoteResponseModel? rating = await _ratingService.GetUserVoteForServiceAsync(userId, serviceId);
+        return new ResponseContent<UserVoteResponseModel?>
+        {
+            Result = rating,
+        };
     }
 }
