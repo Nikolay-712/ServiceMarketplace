@@ -2,6 +2,7 @@
 using ServiceMarketplace.Models;
 using static ServiceMarketplace.Models.Response.RatingResponseModels;
 using static ServiceMarketplace.Models.Response.ServiceResponseModels;
+using ServiceMarketplace.Models.Request;
 
 namespace ServiceMarketplace.Services.Interfaces.Owner;
 
@@ -12,4 +13,6 @@ public interface IRatingService
     Task<RatingCalculationResponseModel> CalculateServiceRatingAsync(Guid serviceId);
 
     RatingResponseModel CreateRatingResponse(PaginationResponseModel<UserVoteResponseModel> userVotes, RatingCalculationResponseModel calculation);
+
+    Task SendOwnerCommentAsync(Guid ownerId, SendOwnerCommentRequestModel requestModel);
 }

@@ -142,6 +142,15 @@ namespace ServiceMarketplace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Something went wrong. Please try again later.
+        /// </summary>
+        public static string GeneralErrorMessage {
+            get {
+                return ResourceManager.GetString("GeneralErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The specified phone number is not valid, please use the format : &apos;+359 xxxx xx xxx&apos; or  &apos;0 xxxx xx xxx&apos;.
         /// </summary>
         public static string InvalidPhnoneNumber {
@@ -192,6 +201,15 @@ namespace ServiceMarketplace.Common.Resources {
         public static string NotFoundContact {
             get {
                 return ResourceManager.GetString("NotFoundContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no such rating.
+        /// </summary>
+        public static string NotFoundRating {
+            get {
+                return ResourceManager.GetString("NotFoundRating", resourceCulture);
             }
         }
         

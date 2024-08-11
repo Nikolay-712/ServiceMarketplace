@@ -6,6 +6,10 @@ using ServiceMarketplace.Models.Request.Filters;
 using ServiceMarketplace.Models;
 using ServiceMarketplace.Services.Interfaces.Owner;
 using ServiceMarketplace.Models.Extensions;
+using ServiceMarketplace.Models.Request;
+using ServiceMarketplace.Common.Exceptions.ServerExceptions;
+using ServiceMarketplace.Common.Resources;
+using ServiceMarketplace.Common.Exceptions.ClientExceptions;
 
 using static ServiceMarketplace.Models.Response.RatingResponseModels;
 using static ServiceMarketplace.Models.Response.ServiceResponseModels;
@@ -80,5 +84,47 @@ public class RatingService : IRatingService
     {
         return new(userVotes, calculation.VotesCount, calculation.AverageRating);
 
+    }
+
+    public async Task SendOwnerCommentAsync(Guid ownerId, SendOwnerCommentRequestModel requestModel)
+    {
+        Rating? rating = await _applicationContext.Ratings
+             .Include(x => x.OwnerComment)
+             .FirstOrDefaultAsync(x => x.Id == requestModel.RatingId);
+
+        if (rating is null)
+        {
+            _logger.LogError("No rating exists with this ID {RatingId}", requestModel.RatingId);
+            throw new NotFoundEntityException(Messages.NotFoundRating);
+        }
+
+        bool hasServiceOwner = await _applicationContext.Services.AnyAsync(x => x.Id == rating.ServiceId && x.OwnerId == ownerId);
+        if (!hasServiceOwner)
+        {
+            _logger.LogError("A user with an ID {UserId} has no rights to a service with an ID {ServiceId}", ownerId, rating.ServiceId);
+            throw new RightDeniedException(Messages.GeneralErrorMessage);
+        }
+
+        if (rating.OwnerComment is not null)
+        {
+            rating.OwnerComment.Comment = requestModel.Comment;
+            rating.OwnerComment.ModifiedOn = DateTime.UtcNow;
+
+            _logger.LogInformation("Successfully update comment from owner with ID {OwnerCommentId}", rating.OwnerComment.Id);
+        }
+        else
+        {
+            OwnerComment ownerComment = new()
+            {
+                Comment = requestModel.Comment,
+                RatingId = requestModel.RatingId,
+                OwnerId = ownerId,
+            };
+
+            _applicationContext.OwnerComments.Add(ownerComment);
+            _logger.LogInformation("You have successfully added a comment from the owner to rating with ID {RatingId}", requestModel.RatingId);
+        }
+
+        await _applicationContext.SaveChangesAsync();
     }
 }

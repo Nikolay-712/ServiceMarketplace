@@ -144,6 +144,9 @@
   <data name="FieldLength" xml:space="preserve">
     <value>The length of this field should be between {MinLength} and {MaxLength} characters.</value>
   </data>
+  <data name="GeneralErrorMessage" xml:space="preserve">
+    <value>Something went wrong. Please try again later</value>
+  </data>
   <data name="InvalidPhnoneNumber" xml:space="preserve">
     <value>The specified phone number is not valid, please use the format : '+359 xxxx xx xxx' or  '0 xxxx xx xxx'</value>
   </data>
@@ -161,6 +164,9 @@
   </data>
   <data name="NotFoundContact" xml:space="preserve">
     <value>There is no such contact</value>
+  </data>
+  <data name="NotFoundRating" xml:space="preserve">
+    <value>There is no such rating</value>
   </data>
   <data name="NotFoundService" xml:space="preserve">
     <value>There is no such service</value>

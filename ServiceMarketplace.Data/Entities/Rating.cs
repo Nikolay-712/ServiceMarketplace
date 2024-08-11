@@ -14,7 +14,5 @@ public class Rating : BaseEntity
 
     public ApplicationUser User { get; set; }
 
-    public int? OwnerCommentId { get; set; }
-
     public OwnerComment? OwnerComment { get; set; }
 }
