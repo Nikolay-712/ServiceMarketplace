@@ -3,16 +3,19 @@ using ServiceMarketplace.Models.Response;
 using ServiceMarketplace.Common.Extensions;
 
 using static ServiceMarketplace.Models.Response.ServiceResponseModels;
+using static ServiceMarketplace.Models.Response.RatingResponseModels;
 
 namespace ServiceMarketplace.Models.Extensions;
 
 public static class ServiceMappingExtensions
 {
-    public static ServiceResponseModel ToServiceResponseModel(this Service service)
+    public static ServiceResponseModel ToServiceResponseModel(this Service service, RatingCalculationResponseModel rating)
         => new(service.Id,
                service.CreatedOn.DateFormat(),
                service.NameBg,
-               service.NameEn);
+               service.NameEn,
+               rating);
+
 
     public static ServiceDetailsResponseModel ToServiceDetailsResponseModel(this Service service, RatingResponseModel ratings)
         => new(

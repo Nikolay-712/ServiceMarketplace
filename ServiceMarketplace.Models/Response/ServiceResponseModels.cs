@@ -9,7 +9,9 @@ public static class ServiceResponseModels
         Guid Id,
         string CreatedOn,
         string NameBg,
-        string NameEn);
+        string NameEn, 
+        RatingCalculationResponseModel Rating);
+
 
     public record ServiceDetailsResponseModel(
         Guid Id,

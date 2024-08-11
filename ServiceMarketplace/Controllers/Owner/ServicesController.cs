@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ServiceMarketplace.Models;
 using ServiceMarketplace.Models.Request;
+using ServiceMarketplace.Models.Request.Filters;
 using ServiceMarketplace.Models.Response;
 using ServiceMarketplace.Services.Interfaces.Owner;
 
@@ -55,10 +56,10 @@ public class ServicesController : ControllerBase
 
     [HttpGet("details/{serviceId}")]
     [ProducesResponseType<ResponseContent<ServiceDetailsResponseModel>>(200)]
-    public async Task<ResponseContent<ServiceDetailsResponseModel>> GetDetailsAsync(Guid serviceId)
+    public async Task<ResponseContent<ServiceDetailsResponseModel>> GetDetailsAsync(Guid serviceId, [FromQuery] RatingFilter ratingFilter)
     {
         Guid ownerId = Guid.Parse("CEFAD0F7-678E-4769-B0C6-3943BF78A59D");
-        ServiceDetailsResponseModel serviceDetails = await _serviceService.GetDetailsAsync(ownerId, serviceId);
+        ServiceDetailsResponseModel serviceDetails = await _serviceService.GetDetailsAsync(ownerId, serviceId, ratingFilter);
 
         return new ResponseContent<ServiceDetailsResponseModel>
         {

@@ -1,5 +1,5 @@
 ﻿using ServiceMarketplace.Models.Request;
-
+using ServiceMarketplace.Models.Request.Filters;
 using static ServiceMarketplace.Models.Response.ServiceResponseModels;
 
 namespace ServiceMarketplace.Services.Interfaces.Owner;
@@ -12,7 +12,7 @@ public interface IServiceService
 
     Task<IReadOnlyList<ServiceResponseModel>> GetAllAsync(Guid ownerId);
 
-    Task<ServiceDetailsResponseModel> GetDetailsAsync(Guid ownerId, Guid serviceId);
+    Task<ServiceDetailsResponseModel> GetDetailsAsync(Guid ownerId, Guid serviceId, RatingFilter ratingFilter);
 
     Task ChangeCategoryAsync(Guid serviceId, Guid ownerId, ChangeCategoryRequestModel requestModel);
 

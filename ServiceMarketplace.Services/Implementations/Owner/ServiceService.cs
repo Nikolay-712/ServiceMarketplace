@@ -6,10 +6,13 @@ using ServiceMarketplace.Common.Extensions;
 using ServiceMarketplace.Common.Resources;
 using ServiceMarketplace.Data;
 using ServiceMarketplace.Data.Entities;
+using ServiceMarketplace.Models;
 using ServiceMarketplace.Models.Extensions;
 using ServiceMarketplace.Models.Request;
+using ServiceMarketplace.Models.Request.Filters;
+using ServiceMarketplace.Models.Response;
 using ServiceMarketplace.Services.Interfaces.Owner;
-
+using static ServiceMarketplace.Models.Response.RatingResponseModels;
 using static ServiceMarketplace.Models.Response.ServiceResponseModels;
 
 namespace ServiceMarketplace.Services.Implementations.Owner;
@@ -20,6 +23,7 @@ public class ServiceService : IServiceService
     private readonly ICategoryService _categoryService;
     private readonly ICityService _cityService;
     private readonly IContactService _contactService;
+    private readonly IRatingService _ratingService;
     private readonly ILogger<ServiceService> _logger;
 
     public ServiceService(
@@ -27,12 +31,14 @@ public class ServiceService : IServiceService
         ICategoryService categoryService,
         ICityService cityService,
         IContactService contactService,
+        IRatingService ratingService,
         ILogger<ServiceService> logger)
     {
         _applicationContext = applicationContext;
         _categoryService = categoryService;
         _cityService = cityService;
         _contactService = contactService;
+        _ratingService = ratingService;
         _logger = logger;
     }
 
@@ -109,15 +115,21 @@ public class ServiceService : IServiceService
 
     public async Task<IReadOnlyList<ServiceResponseModel>> GetAllAsync(Guid ownerId)
     {
-        IQueryable<Service> servicesQuery = _applicationContext.Services.Where(x => x.OwnerId == ownerId);
+        IQueryable<Service> servicesQuery = _applicationContext.Services
+            .Include(x => x.Ratings)
+            .Where(x => x.OwnerId == ownerId);
+
         IReadOnlyList<ServiceResponseModel> services = await servicesQuery
-            .Select(x => x.ToServiceResponseModel())
-            .ToListAsync();
+                .Select(x => x.ToServiceResponseModel(
+                    new RatingCalculationResponseModel(
+                        x.Ratings.Count(), 
+                        x.Ratings.Any() ? x.Ratings.Average(r => r.Value) : 0)))
+                .ToListAsync();
 
         return services;
     }
 
-    public async Task<ServiceDetailsResponseModel> GetDetailsAsync(Guid ownerId, Guid serviceId)
+    public async Task<ServiceDetailsResponseModel> GetDetailsAsync(Guid ownerId, Guid serviceId, RatingFilter ratingFilter)
     {
         Service? service = await _applicationContext.Services
             .Include(x => x.SubCategory)
@@ -133,7 +145,11 @@ public class ServiceService : IServiceService
             throw new NotFoundEntityException(Messages.NotFoundService);
         }
 
-        ServiceDetailsResponseModel serviceDetails = service.ToServiceDetailsResponseModel(null);
+        PaginationResponseModel<UserVoteResponseModel> userVotes = await _ratingService.GetServiceRatingAsync(serviceId, ratingFilter);
+        RatingCalculationResponseModel calculation = await _ratingService.CalculateServiceRatingAsync(serviceId);
+        RatingResponseModel ratingResponse = _ratingService.CreateRatingResponse(userVotes, calculation);
+
+        ServiceDetailsResponseModel serviceDetails = service.ToServiceDetailsResponseModel(ratingResponse);
 
         return serviceDetails;
     }
