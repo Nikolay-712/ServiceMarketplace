@@ -24,7 +24,9 @@ public class ContactsController : ControllerBase
     [ProducesResponseType<ResponseContent>(200)]
     public async Task<ResponseContent> AddAsync([FromRoute] Guid serviceId, ManageContactRequestModel requestModel)
     {
-        await _contactService.AddAsync(serviceId, requestModel);
+        Guid ownerId = Guid.Parse("CEFAD0F7-678E-4769-B0C6-3943BF78A59D");
+
+        await _contactService.AddAsync(serviceId, requestModel, ownerId);
         return new ResponseContent();
     }
 
@@ -43,7 +45,9 @@ public class ContactsController : ControllerBase
     [ProducesResponseType<ResponseContent>(200)]
     public async Task<ResponseContent> UpdateAsync([FromRoute] Guid serviceId, [FromRoute] int contactId, ManageContactRequestModel requestModel)
     {
-        await _contactService.UpdateAsync(contactId, serviceId, requestModel);
+        Guid ownerId = Guid.Parse("CEFAD0F7-678E-4769-B0C6-3943BF78A59D");
+
+        await _contactService.UpdateAsync(contactId, serviceId, ownerId, requestModel);
         return new ResponseContent();
     }
 
@@ -51,7 +55,9 @@ public class ContactsController : ControllerBase
     [ProducesResponseType<ResponseContent>(200)]
     public async Task<ResponseContent> RemoveAsync([FromRoute] Guid serviceId, [FromRoute] int contactId)
     {
-        await _contactService.RemoveAsync(contactId, serviceId);
+        Guid ownerId = Guid.Parse("CEFAD0F7-678E-4769-B0C6-3943BF78A59D");
+
+        await _contactService.RemoveAsync(contactId, serviceId, ownerId);
         return new ResponseContent();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ServiceMarketplace.Common.Exceptions.ClientExceptions;
+using ServiceMarketplace.Common.Exceptions.ServerExceptions;
 using ServiceMarketplace.Common.Resources;
 using ServiceMarketplace.Data;
 using ServiceMarketplace.Data.Entities;
@@ -39,9 +40,9 @@ public class ContactService : IContactService
         _applicationContext.Contacts.Add(contact);
     }
 
-    public async Task AddAsync(Guid serviceId, ManageContactRequestModel requestModel)
+    public async Task AddAsync(Guid serviceId, ManageContactRequestModel requestModel,Guid ownerId)
     {
-        bool existsService = await _applicationContext.Services.AnyAsync(x => x.Id == serviceId);
+        bool existsService = await _applicationContext.Services.AnyAsync(x => x.Id == serviceId && x.OwnerId == ownerId);
         if (!existsService)
         {
             _logger.LogError("No service exists with this ID {ServiceId}", serviceId);
@@ -65,9 +66,10 @@ public class ContactService : IContactService
         return contacts;
     }
 
-    public async Task UpdateAsync(int contactId, Guid serviceId, ManageContactRequestModel requestModel)
+    public async Task UpdateAsync(int contactId, Guid serviceId,Guid ownerId, ManageContactRequestModel requestModel)
     {
         Contact contact = await GetServiceContactAsync(contactId, serviceId);
+        await ValidateServiceOwnerAsync(contact.ServiceId, ownerId);
 
         string phoneNumber = FormatPhoneNumber(requestModel.PhoneNumber);
 
@@ -79,9 +81,10 @@ public class ContactService : IContactService
         _logger.LogInformation("Successfully updated a contact with ID {ContactId} for Service with ID: {ServiceId}", contactId, serviceId);
     }
 
-    public async Task RemoveAsync(int contactId, Guid serviceId)
+    public async Task RemoveAsync(int contactId, Guid serviceId, Guid ownerId)
     {
         Contact contact = await GetServiceContactAsync(contactId, serviceId);
+        await ValidateServiceOwnerAsync(contact.ServiceId, ownerId);
 
         IQueryable<Contact> contactsQuery = _applicationContext.Contacts.Where(x => x.ServiceId == serviceId);
         bool isLastContact = await contactsQuery.CountAsync() == 1;
@@ -99,7 +102,7 @@ public class ContactService : IContactService
 
     private async Task<Contact> GetServiceContactAsync(int contactId, Guid serviceId)
     {
-        Contact? contact = await _applicationContext.Contacts.FirstOrDefaultAsync(x => x.Id == contactId && x.ServiceId == serviceId);
+        Contact? contact = await _applicationContext.Contacts.FirstOrDefaultAsync(x => (x.Id == contactId && x.ServiceId == serviceId));
         if (contact is null)
         {
             _logger.LogError("No contact exists with this service ID {ServiceId} and Contact ID {ContactId}", serviceId, contactId);
@@ -116,5 +119,15 @@ public class ContactService : IContactService
         }
 
         return phoneNumber;
+    }
+
+    private async Task ValidateServiceOwnerAsync(Guid serviceId, Guid ownerId)
+    {
+        bool isServiceOwner = await _applicationContext.Services.AnyAsync(x => x.Id == serviceId && x.OwnerId == ownerId);
+        if (!isServiceOwner)
+        {
+            _logger.LogError("A user with an ID {UserId} has no rights to a service with an ID {ServiceId}", ownerId, serviceId);
+            throw new RightDeniedException(Messages.GeneralErrorMessage);
+        }
     }
 }

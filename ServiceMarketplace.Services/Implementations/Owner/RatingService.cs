@@ -98,8 +98,8 @@ public class RatingService : IRatingService
             throw new NotFoundEntityException(Messages.NotFoundRating);
         }
 
-        bool hasServiceOwner = await _applicationContext.Services.AnyAsync(x => x.Id == rating.ServiceId && x.OwnerId == ownerId);
-        if (!hasServiceOwner)
+        bool isServiceOwner = await _applicationContext.Services.AnyAsync(x => x.Id == rating.ServiceId && x.OwnerId == ownerId);
+        if (!isServiceOwner)
         {
             _logger.LogError("A user with an ID {UserId} has no rights to a service with an ID {ServiceId}", ownerId, rating.ServiceId);
             throw new RightDeniedException(Messages.GeneralErrorMessage);

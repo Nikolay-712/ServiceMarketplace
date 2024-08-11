@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ServiceMarketplace.Models;
-using ServiceMarketplace.Models.Response;
 using ServiceMarketplace.Services.Interfaces.Owner;
 
 using static ServiceMarketplace.Models.Response.CategoryResponseModels;
@@ -44,7 +42,7 @@ public class CategoriesController : ControllerBase
 
     [HttpGet("tags/{subCategoryId}")]
     [ProducesResponseType<IReadOnlyList<IReadOnlyList<TagResponseModel>>>(200)]
-    public async Task<ResponseContent<IReadOnlyList<TagResponseModel>>> GetAllSTagsAsync([FromRoute] Guid subCategoryId)
+    public async Task<ResponseContent<IReadOnlyList<TagResponseModel>>> GetAllTagsAsync([FromRoute] Guid subCategoryId)
     {
         IReadOnlyList<TagResponseModel> tags = await _categoryService.GetAllTagsAsync(subCategoryId);
         return new ResponseContent<IReadOnlyList<TagResponseModel>>
