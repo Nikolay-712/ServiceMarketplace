@@ -27,4 +27,14 @@ public class RatingsController : ControllerBase
         await _ratingService.SendOwnerCommentAsync(ownerId, requestModel);
         return new ResponseContent();
     }
+
+    [HttpDelete("remove-comment/{commentId}")]
+    [ProducesResponseType<ResponseContent>(200)]
+    public async Task<ResponseContent> RemoveOwnerCommentAsync(int commentId)
+    {
+        Guid ownerId = Guid.Parse("CEFAD0F7-678E-4769-B0C6-3943BF78A59D");
+
+        await _ratingService.RemoveOwnerCommentAsync(ownerId, commentId);
+        return new ResponseContent();
+    }
 }

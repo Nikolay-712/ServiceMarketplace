@@ -165,6 +165,9 @@
   <data name="NotFoundContact" xml:space="preserve">
     <value>There is no such contact</value>
   </data>
+  <data name="NotFoundOwnerComment" xml:space="preserve">
+    <value>There is no such owner comment</value>
+  </data>
   <data name="NotFoundRating" xml:space="preserve">
     <value>There is no such rating</value>
   </data>

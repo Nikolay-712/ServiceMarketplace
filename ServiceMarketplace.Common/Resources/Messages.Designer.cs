@@ -205,6 +205,15 @@ namespace ServiceMarketplace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is no such owner comment.
+        /// </summary>
+        public static string NotFoundOwnerComment {
+            get {
+                return ResourceManager.GetString("NotFoundOwnerComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is no such rating.
         /// </summary>
         public static string NotFoundRating {

@@ -127,4 +127,19 @@ public class RatingService : IRatingService
 
         await _applicationContext.SaveChangesAsync();
     }
+
+    public async Task RemoveOwnerCommentAsync(Guid ownerId, int commentId)
+    {
+        OwnerComment? ownerComment = await _applicationContext.OwnerComments.FirstOrDefaultAsync(x => x.Id == commentId && x.OwnerId == ownerId);
+        if (ownerComment is null)
+        {
+            _logger.LogError("No owner comment exists with this ID {CommentId}", commentId);
+            throw new NotFoundEntityException(Messages.NotFoundOwnerComment);
+        }
+
+        _applicationContext.OwnerComments.Remove(ownerComment);
+        await _applicationContext.SaveChangesAsync();
+
+        _logger.LogInformation("You have successfully remove a comment with ID {CommentId}", commentId);
+    }
 }

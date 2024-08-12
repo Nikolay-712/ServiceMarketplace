@@ -15,4 +15,6 @@ public interface IRatingService
     RatingResponseModel CreateRatingResponse(PaginationResponseModel<UserVoteResponseModel> userVotes, RatingCalculationResponseModel calculation);
 
     Task SendOwnerCommentAsync(Guid ownerId, SendOwnerCommentRequestModel requestModel);
+
+    Task RemoveOwnerCommentAsync(Guid ownerId, int commentId);
 }
