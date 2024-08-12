@@ -9,6 +9,8 @@ public class ApplicationUser : IdentityUser<Guid>
         CreatedOn = DateTime.UtcNow;
     }
 
+    public string FullName { get; set; }
+
     public DateTime CreatedOn { get; set; }
 
     public DateTime? ModifiedOn { get; set; }

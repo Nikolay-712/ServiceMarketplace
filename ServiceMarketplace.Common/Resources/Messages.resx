@@ -123,6 +123,9 @@
   <data name="CannotRemoveAllTags" xml:space="preserve">
     <value>You cannot remove all tags. The service must have at least one tag</value>
   </data>
+  <data name="EmailAlreadyExists" xml:space="preserve">
+    <value>Email address already exists</value>
+  </data>
   <data name="ExistsCategoryName" xml:space="preserve">
     <value>A category with this name has already been added</value>
   </data>
@@ -146,6 +149,12 @@
   </data>
   <data name="GeneralErrorMessage" xml:space="preserve">
     <value>Something went wrong. Please try again later</value>
+  </data>
+  <data name="InvalidCredentials" xml:space="preserve">
+    <value>Invalid email or password</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>Invalid email format</value>
   </data>
   <data name="InvalidPhnoneNumber" xml:space="preserve">
     <value>The specified phone number is not valid, please use the format : '+359 xxxx xx xxx' or  '0 xxxx xx xxx'</value>
@@ -185,6 +194,9 @@
   </data>
   <data name="OfferNotSupporte" xml:space="preserve">
     <value>The option you have chosen to offer is not supported</value>
+  </data>
+  <data name="PasswordMismatch" xml:space="preserve">
+    <value>Passwords do not match</value>
   </data>
   <data name="RequiredField" xml:space="preserve">
     <value>Field required</value>

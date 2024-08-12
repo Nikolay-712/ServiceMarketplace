@@ -12,6 +12,12 @@ using ServiceMarketplace.Infrastructure.Filters;
 using ServiceMarketplace.Models.Validators;
 using System.Globalization;
 using System.Text;
+using ServiceMarketplace.Services.Interfaces.Users;
+using ServiceMarketplace.Services.Implementations.Users;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using ServiceMarketplace.Services.Interfaces.Identity;
+using ServiceMarketplace.Services.Implementations.Identity;
 
 using AdministrationInterfaces = ServiceMarketplace.Services.Interfaces.Administration;
 using AdministrationImplementations = ServiceMarketplace.Services.Implementations.Administration;
@@ -19,6 +25,7 @@ using OwnerInterfaces = ServiceMarketplace.Services.Interfaces.Owner;
 using OwnerImplementations = ServiceMarketplace.Services.Implementations.Owner;
 using ServiceMarketplace.Services.Interfaces.Users;
 using ServiceMarketplace.Services.Implementations.Users;
+using ServiceMarketplace.Infrastructure.Middleware;
 
 internal class Program
 {
@@ -56,7 +63,7 @@ internal class Program
     {
         services.Configure<RequestLocalizationSettings>(configuration.GetSection(nameof(RequestLocalizationSettings)));
         services.Configure<SwaggerSettings>(configuration.GetSection(nameof(SwaggerSettings)));
-
+        services.Configure<JwtTokenSettings>(configuration.GetSection(nameof(JwtTokenSettings)));
     }
 
     [Obsolete]
@@ -86,6 +93,11 @@ internal class Program
         services.AddSwaggerGen();
 
         ApplicationContextConfiguration(services, configuration);
+        JwtTokenConfiguration(services, configuration);
+
+        //Identity area
+        services.AddScoped<ITokenManager, TokenManager>();
+        services.AddScoped<IAccountService, AccountService>();
 
         //Administration area
         services.AddScoped<AdministrationInterfaces.ICategoryService, AdministrationImplementations.CategoryService>();
@@ -175,6 +187,7 @@ internal class Program
         }
 
         app.UseHttpsRedirection();
+        app.UseMiddleware<TokenValidatorMiddleware>();
 
         app.UseAuthentication();
         app.UseAuthorization();
@@ -191,5 +204,30 @@ internal class Program
             .AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
             .AddRoles<ApplicationRole>()
             .AddEntityFrameworkStores<ApplicationContext>();
+    }
+
+    private static void JwtTokenConfiguration(IServiceCollection services, IConfiguration configuration)
+    {
+        JwtTokenSettings jwtTokenSettings = new();
+        configuration.GetSection(nameof(JwtTokenSettings)).Bind(jwtTokenSettings);
+
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+        }).AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = jwtTokenSettings.Issuer,
+                ValidAudience = jwtTokenSettings.Audience,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtTokenSettings.Key))
+            };
+        });
     }
 }

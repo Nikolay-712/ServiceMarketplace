@@ -123,6 +123,9 @@
   <data name="CannotRemoveAllTags" xml:space="preserve">
     <value>Не може да премахнете всички тагове. Услугата трябва да има поне един таг</value>
   </data>
+  <data name="EmailAlreadyExists" xml:space="preserve">
+    <value>Има потребител с този е-маил адрес</value>
+  </data>
   <data name="ExistsCategoryName" xml:space="preserve">
     <value>Категория с това име вече е добавена</value>
   </data>
@@ -146,6 +149,12 @@
   </data>
   <data name="GeneralErrorMessage" xml:space="preserve">
     <value>Нещо се обърка.Моля опитайте по късно</value>
+  </data>
+  <data name="InvalidCredentials" xml:space="preserve">
+    <value>Не валиден е-майл адрес или парола</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>Invalid email format</value>
   </data>
   <data name="InvalidPhoneNumber" xml:space="preserve">
     <value>Посочения  телефонен номер не е валиден, Моля използвайте формат : '+359 xxxx xx xxx' или '0 xxxx xx xxx'</value>
@@ -185,6 +194,9 @@
   </data>
   <data name="OfferNotSupporte" xml:space="preserve">
     <value>Oпцията, която сте избрали не се поддържа</value>
+  </data>
+  <data name="PasswordMismatch" xml:space="preserve">
+    <value>Паролите не съвпадат</value>
   </data>
   <data name="RequiredField" xml:space="preserve">
     <value>Полето е задължително</value>

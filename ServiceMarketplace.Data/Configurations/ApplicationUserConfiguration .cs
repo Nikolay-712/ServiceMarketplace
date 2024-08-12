@@ -9,6 +9,12 @@ internal class ApplicationUserConfiguration : IEntityTypeConfiguration<Applicati
     public void Configure(EntityTypeBuilder<ApplicationUser> appUser)
     {
         appUser
+            .Property(x => x.FullName)
+            .IsRequired()
+            .IsUnicode()
+            .HasMaxLength(150);
+
+        appUser
             .HasMany(e => e.Claims)
             .WithOne()
             .HasForeignKey(e => e.UserId)
