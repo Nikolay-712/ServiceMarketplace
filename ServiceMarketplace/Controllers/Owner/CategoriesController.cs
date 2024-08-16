@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ServiceMarketplace.Models;
 using ServiceMarketplace.Services.Interfaces.Owner;
+using Microsoft.AspNetCore.Authorization;
 
 using static ServiceMarketplace.Models.Response.CategoryResponseModels;
+using static ServiceMarketplace.Common.Constants;
 
 namespace ServiceMarketplace.Controllers.Owner;
 
-//[Authorize(Roles = "Owner")]
+[Authorize(Roles = OwnerRoleName)]
 [Route("api/owner/[controller]")]
 [ApiController]
 public class CategoriesController : ControllerBase

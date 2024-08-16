@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ServiceMarketplace.Models;
 using ServiceMarketplace.Models.Request.Filters;
 using ServiceMarketplace.Services.Interfaces.Users;
+
 using static ServiceMarketplace.Models.Response.ServiceResponseModels;
 
 namespace ServiceMarketplace.Controllers.Users;

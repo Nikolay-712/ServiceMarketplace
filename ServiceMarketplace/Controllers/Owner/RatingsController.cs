@@ -1,12 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ServiceMarketplace.Infrastructure.Extensions;
 using ServiceMarketplace.Models;
 using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Services.Interfaces.Owner;
 
+using static ServiceMarketplace.Common.Constants;
+
 namespace ServiceMarketplace.Controllers.Owner;
 
-//[Authorize(Roles = "Owner")]
+[Authorize(Roles = OwnerRoleName)]
 [Route("api/owner/[controller]")]
 [ApiController]
 public class RatingsController : ControllerBase
@@ -22,9 +26,8 @@ public class RatingsController : ControllerBase
     [ProducesResponseType<ResponseContent>(200)]
     public async Task<ResponseContent> SendOwnerCommentAsync(SendOwnerCommentRequestModel requestModel)
     {
-        Guid ownerId = Guid.Parse("CEFAD0F7-678E-4769-B0C6-3943BF78A59D");
-
-        await _ratingService.SendOwnerCommentAsync(ownerId, requestModel);
+        
+        await _ratingService.SendOwnerCommentAsync(ClaimsPrincipalExtensions.GetUserId(this.User), requestModel);
         return new ResponseContent();
     }
 
@@ -32,9 +35,7 @@ public class RatingsController : ControllerBase
     [ProducesResponseType<ResponseContent>(200)]
     public async Task<ResponseContent> RemoveOwnerCommentAsync(int commentId)
     {
-        Guid ownerId = Guid.Parse("CEFAD0F7-678E-4769-B0C6-3943BF78A59D");
-
-        await _ratingService.RemoveOwnerCommentAsync(ownerId, commentId);
+        await _ratingService.RemoveOwnerCommentAsync(ClaimsPrincipalExtensions.GetUserId(this.User), commentId);
         return new ResponseContent();
     }
 }

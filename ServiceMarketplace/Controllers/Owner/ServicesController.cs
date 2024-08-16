@@ -1,15 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ServiceMarketplace.Models;
 using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Models.Request.Filters;
-using ServiceMarketplace.Models.Response;
 using ServiceMarketplace.Services.Interfaces.Owner;
 
 using static ServiceMarketplace.Models.Response.ServiceResponseModels;
+using static ServiceMarketplace.Common.Constants;
+using ServiceMarketplace.Infrastructure.Extensions;
 
 namespace ServiceMarketplace.Controllers.Owner;
 
-//[Authorize(Roles = "Owner")]
+[Authorize(Roles = OwnerRoleName)]
 [Route("api/owner/[controller]")]
 [ApiController]
 public class ServicesController : ControllerBase
@@ -25,8 +27,7 @@ public class ServicesController : ControllerBase
     [ProducesResponseType<ResponseContent>(200)]
     public async Task<ResponseContent> CreateAsync(CreateServiceRequestModel requestModel)
     {
-        Guid ownerId = Guid.Parse("CEFAD0F7-678E-4769-B0C6-3943BF78A59D");
-        await _serviceService.CreateAsync(ownerId, requestModel);
+        await _serviceService.CreateAsync(ClaimsPrincipalExtensions.GetUserId(this.User), requestModel);
 
         return new ResponseContent();
     }
@@ -35,8 +36,8 @@ public class ServicesController : ControllerBase
     [ProducesResponseType<ResponseContent>(200)]
     public async Task<ResponseContent> UpdateAsync([FromRoute] Guid serviceId, UpdateServiceRequestModel requestModel)
     {
-        Guid ownerId = Guid.Parse("CEFAD0F7-678E-4769-B0C6-3943BF78A59D");
-        await _serviceService.UpdateAsync(serviceId, ownerId, requestModel);
+        
+        await _serviceService.UpdateAsync(serviceId, ClaimsPrincipalExtensions.GetUserId(this.User), requestModel);
 
         return new ResponseContent();
     }
@@ -45,8 +46,7 @@ public class ServicesController : ControllerBase
     [ProducesResponseType<ResponseContent<IReadOnlyList<ServiceResponseModel>>>(200)]
     public async Task<ResponseContent<IReadOnlyList<ServiceResponseModel>>> GetAllAsync()
     {
-        Guid ownerId = Guid.Parse("CEFAD0F7-678E-4769-B0C6-3943BF78A59D");
-        IReadOnlyList<ServiceResponseModel> services = await _serviceService.GetAllAsync(ownerId);
+        IReadOnlyList<ServiceResponseModel> services = await _serviceService.GetAllAsync(ClaimsPrincipalExtensions.GetUserId(this.User));
 
         return new ResponseContent<IReadOnlyList<ServiceResponseModel>>
         {
@@ -58,8 +58,7 @@ public class ServicesController : ControllerBase
     [ProducesResponseType<ResponseContent<ServiceDetailsResponseModel>>(200)]
     public async Task<ResponseContent<ServiceDetailsResponseModel>> GetDetailsAsync(Guid serviceId, [FromQuery] RatingFilter ratingFilter)
     {
-        Guid ownerId = Guid.Parse("CEFAD0F7-678E-4769-B0C6-3943BF78A59D");
-        ServiceDetailsResponseModel serviceDetails = await _serviceService.GetDetailsAsync(ownerId, serviceId, ratingFilter);
+        ServiceDetailsResponseModel serviceDetails = await _serviceService.GetDetailsAsync(ClaimsPrincipalExtensions.GetUserId(this.User), serviceId, ratingFilter);
 
         return new ResponseContent<ServiceDetailsResponseModel>
         {
@@ -71,8 +70,7 @@ public class ServicesController : ControllerBase
     [ProducesResponseType<ResponseContent>(200)]
     public async Task<ResponseContent> ChangeCategoryAsync([FromRoute] Guid serviceId, ChangeCategoryRequestModel requestModel)
     {
-        Guid ownerId = Guid.Parse("CEFAD0F7-678E-4769-B0C6-3943BF78A59D");
-        await _serviceService.ChangeCategoryAsync(serviceId, ownerId, requestModel);
+        await _serviceService.ChangeCategoryAsync(serviceId, ClaimsPrincipalExtensions.GetUserId(this.User), requestModel);
 
         return new ResponseContent();
     }
@@ -81,8 +79,7 @@ public class ServicesController : ControllerBase
     [ProducesResponseType<ResponseContent>(200)]
     public async Task<ResponseContent> AddTagAsync([FromRoute] Guid serviceId, [FromRoute] int tagId)
     {
-        Guid ownerId = Guid.Parse("CEFAD0F7-678E-4769-B0C6-3943BF78A59D");
-        await _serviceService.AddTagAsync(serviceId, ownerId, tagId);
+        await _serviceService.AddTagAsync(serviceId, ClaimsPrincipalExtensions.GetUserId(this.User), tagId);
 
         return new ResponseContent();
     }
@@ -91,8 +88,7 @@ public class ServicesController : ControllerBase
     [ProducesResponseType<ResponseContent>(200)]
     public async Task<ResponseContent> RemoveTagAsync([FromRoute] Guid serviceId, [FromRoute] int tagId)
     {
-        Guid ownerId = Guid.Parse("CEFAD0F7-678E-4769-B0C6-3943BF78A59D");
-        await _serviceService.RemoveTagAsync(serviceId, ownerId, tagId);
+        await _serviceService.RemoveTagAsync(serviceId, ClaimsPrincipalExtensions.GetUserId(this.User), tagId);
 
         return new ResponseContent();
     }
@@ -101,8 +97,7 @@ public class ServicesController : ControllerBase
     [ProducesResponseType<ResponseContent>(200)]
     public async Task<ResponseContent> RemoveCityAsync([FromRoute] Guid serviceId, [FromRoute] Guid cityId)
     {
-        Guid ownerId = Guid.Parse("CEFAD0F7-678E-4769-B0C6-3943BF78A59D");
-        await _serviceService.RemoveCityAsync(serviceId, ownerId, cityId);
+        await _serviceService.RemoveCityAsync(serviceId, ClaimsPrincipalExtensions.GetUserId(this.User), cityId);
 
         return new ResponseContent();
     }

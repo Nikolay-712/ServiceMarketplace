@@ -1,15 +1,17 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceMarketplace.Models;
 using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Models.Response;
 using ServiceMarketplace.Services.Interfaces.Administration;
 
+using static ServiceMarketplace.Common.Constants;
+
 namespace ServiceMarketplace.Controllers.Administration;
 
+[Authorize(Roles = AdminRoleName)]
 [Route("api/administration/[controller]")]
 [ApiController]
-//[Authorize(Roles = "Administrator")]
 public class CitiesController : ControllerBase
 {
     private readonly ICityService _cityService;

@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ServiceMarketplace.Infrastructure.Extensions;
 using ServiceMarketplace.Models;
 using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Services.Interfaces.Users;
@@ -8,7 +9,7 @@ using static ServiceMarketplace.Models.Response.RatingResponseModels;
 
 namespace ServiceMarketplace.Controllers.Users;
 
-//[Authorize]
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class RatingsController : ControllerBase
@@ -24,9 +25,7 @@ public class RatingsController : ControllerBase
     [ProducesResponseType<ResponseContent>(200)]
     public async Task<ResponseContent> RateServiceAsync(AddRatingRequestModel requestModel)
     {
-        Guid userId = Guid.Parse("CEFAD0F7-678E-4769-B0C6-3943BF78A59D");
-
-        await _ratingService.AddOrUpdateRatingAsync(userId, requestModel);
+        await _ratingService.AddOrUpdateRatingAsync(ClaimsPrincipalExtensions.GetUserId(this.User), requestModel);
         return new ResponseContent();
     }
 
@@ -34,9 +33,7 @@ public class RatingsController : ControllerBase
     [ProducesResponseType<ResponseContent<UserVoteResponseModel>>(200)]
     public async Task<ResponseContent<UserVoteResponseModel?>> GetUserVoteForServiceAsync(Guid serviceId)
     {
-        Guid userId = Guid.Parse("CEFAD0F7-678E-4769-B0C6-3943BF78A59D");
-
-        UserVoteResponseModel? rating = await _ratingService.GetUserVoteForServiceAsync(userId, serviceId);
+        UserVoteResponseModel? rating = await _ratingService.GetUserVoteForServiceAsync(ClaimsPrincipalExtensions.GetUserId(this.User), serviceId);
         return new ResponseContent<UserVoteResponseModel?>
         {
             Result = rating,

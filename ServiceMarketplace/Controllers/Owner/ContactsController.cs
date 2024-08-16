@@ -5,10 +5,12 @@ using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Services.Interfaces.Owner;
 
 using static ServiceMarketplace.Models.Response.ServiceResponseModels;
+using static ServiceMarketplace.Common.Constants;
+using ServiceMarketplace.Infrastructure.Extensions;
 
 namespace ServiceMarketplace.Controllers.Owner;
 
-//[Authorize(Roles = "Owner")]
+[Authorize(Roles =OwnerRoleName)]
 [Route("api/owner/[controller]")]
 [ApiController]
 public class ContactsController : ControllerBase
@@ -24,9 +26,7 @@ public class ContactsController : ControllerBase
     [ProducesResponseType<ResponseContent>(200)]
     public async Task<ResponseContent> AddAsync([FromRoute] Guid serviceId, ManageContactRequestModel requestModel)
     {
-        Guid ownerId = Guid.Parse("CEFAD0F7-678E-4769-B0C6-3943BF78A59D");
-
-        await _contactService.AddAsync(serviceId, requestModel, ownerId);
+        await _contactService.AddAsync(serviceId, requestModel, ClaimsPrincipalExtensions.GetUserId(this.User));
         return new ResponseContent();
     }
 
@@ -45,9 +45,7 @@ public class ContactsController : ControllerBase
     [ProducesResponseType<ResponseContent>(200)]
     public async Task<ResponseContent> UpdateAsync([FromRoute] Guid serviceId, [FromRoute] int contactId, ManageContactRequestModel requestModel)
     {
-        Guid ownerId = Guid.Parse("CEFAD0F7-678E-4769-B0C6-3943BF78A59D");
-
-        await _contactService.UpdateAsync(contactId, serviceId, ownerId, requestModel);
+        await _contactService.UpdateAsync(contactId, serviceId, ClaimsPrincipalExtensions.GetUserId(this.User), requestModel);
         return new ResponseContent();
     }
 
@@ -55,9 +53,7 @@ public class ContactsController : ControllerBase
     [ProducesResponseType<ResponseContent>(200)]
     public async Task<ResponseContent> RemoveAsync([FromRoute] Guid serviceId, [FromRoute] int contactId)
     {
-        Guid ownerId = Guid.Parse("CEFAD0F7-678E-4769-B0C6-3943BF78A59D");
-
-        await _contactService.RemoveAsync(contactId, serviceId, ownerId);
+        await _contactService.RemoveAsync(contactId, serviceId, ClaimsPrincipalExtensions.GetUserId(this.User));
         return new ResponseContent();
     }
 }

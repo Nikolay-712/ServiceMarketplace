@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServiceMarketplace.Models;
 using ServiceMarketplace.Models.Response;
 using ServiceMarketplace.Services.Interfaces.Owner;
 
+using static ServiceMarketplace.Common.Constants;
+
 namespace ServiceMarketplace.Controllers.Owner;
 
-//[Authorize(Roles = "Owner")]
+[Authorize(Roles = OwnerRoleName)]
 [Route("api/owner/[controller]")]
 [ApiController]
 public class CitiesController : ControllerBase
