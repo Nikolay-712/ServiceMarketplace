@@ -23,8 +23,6 @@ using AdministrationInterfaces = ServiceMarketplace.Services.Interfaces.Administ
 using AdministrationImplementations = ServiceMarketplace.Services.Implementations.Administration;
 using OwnerInterfaces = ServiceMarketplace.Services.Interfaces.Owner;
 using OwnerImplementations = ServiceMarketplace.Services.Implementations.Owner;
-using ServiceMarketplace.Services.Interfaces.Users;
-using ServiceMarketplace.Services.Implementations.Users;
 using ServiceMarketplace.Infrastructure.Middleware;
 
 internal class Program
@@ -102,6 +100,7 @@ internal class Program
         //Administration area
         services.AddScoped<AdministrationInterfaces.ICategoryService, AdministrationImplementations.CategoryService>();
         services.AddScoped<AdministrationInterfaces.ICityService, AdministrationImplementations.CityService>();
+        services.AddScoped<AdministrationInterfaces.IRoleService, AdministrationImplementations.RoleService>();
 
         //Owner area
         services.AddScoped<OwnerInterfaces.IServiceService, OwnerImplementations.ServiceService>();

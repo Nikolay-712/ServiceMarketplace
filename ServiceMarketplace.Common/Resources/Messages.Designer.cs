@@ -313,6 +313,33 @@ namespace ServiceMarketplace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t remove the role, it is currently in use.
+        /// </summary>
+        public static string RoleCurrentlyUse {
+            get {
+                return ResourceManager.GetString("RoleCurrentlyUse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role name already exists.
+        /// </summary>
+        public static string RoleNameAlreadyExists {
+            get {
+                return ResourceManager.GetString("RoleNameAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not found role.
+        /// </summary>
+        public static string RoleNotFound {
+            get {
+                return ResourceManager.GetString("RoleNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The value must be between {MinValue} - {MaxValue}.
         /// </summary>
         public static string ValueRange {

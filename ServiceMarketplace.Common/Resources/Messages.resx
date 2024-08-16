@@ -201,6 +201,15 @@
   <data name="RequiredField" xml:space="preserve">
     <value>Field required</value>
   </data>
+  <data name="RoleCurrentlyUse" xml:space="preserve">
+    <value>Can't remove the role, it is currently in use</value>
+  </data>
+  <data name="RoleNameAlreadyExists" xml:space="preserve">
+    <value>Role name already exists</value>
+  </data>
+  <data name="RoleNotFound" xml:space="preserve">
+    <value>Not found role</value>
+  </data>
   <data name="ValueRange" xml:space="preserve">
     <value>The value must be between {MinValue} - {MaxValue}</value>
   </data>

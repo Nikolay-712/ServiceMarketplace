@@ -7,7 +7,7 @@ using ServiceMarketplace.Services.Interfaces.Owner;
 
 using static ServiceMarketplace.Models.Response.ServiceResponseModels;
 using static ServiceMarketplace.Common.Constants;
-using ServiceMarketplace.Infrastructure.Extensions;
+using ServiceMarketplace.Common.Extensions;
 
 namespace ServiceMarketplace.Controllers.Owner;
 

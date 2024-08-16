@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using ServiceMarketplace.Models;
 using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Services.Interfaces.Owner;
+using ServiceMarketplace.Common.Extensions;
 
 using static ServiceMarketplace.Models.Response.ServiceResponseModels;
 using static ServiceMarketplace.Common.Constants;
-using ServiceMarketplace.Infrastructure.Extensions;
 
 namespace ServiceMarketplace.Controllers.Owner;
 
