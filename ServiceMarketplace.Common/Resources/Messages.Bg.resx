@@ -192,6 +192,9 @@
   <data name="NotFoundTag" xml:space="preserve">
     <value>Няма такъв таг</value>
   </data>
+  <data name="NotFoundUser" xml:space="preserve">
+    <value>Потребителят не е намерен</value>
+  </data>
   <data name="OfferNotSupporte" xml:space="preserve">
     <value>Oпцията, която сте избрали не се поддържа</value>
   </data>
@@ -209,6 +212,12 @@
   </data>
   <data name="RoleNotFound" xml:space="preserve">
     <value>Ролята не е намерена</value>
+  </data>
+  <data name="UserNotInRole" xml:space="preserve">
+    <value>Текущият потребител няма такава роля</value>
+  </data>
+  <data name="UserRoleExists" xml:space="preserve">
+    <value>Потребителят вече е добавен към тази роля</value>
   </data>
   <data name="ValueRange" xml:space="preserve">
     <value>Стойността трябва да бъде между {MinValue} - {MaxValue}</value>

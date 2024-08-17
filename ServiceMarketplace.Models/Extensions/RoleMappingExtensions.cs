@@ -12,5 +12,5 @@ public static class RoleMappingExtensions
             role.Name!,
             role.CreatedOn.DateFormat(),
             role.DescriptionBg,
-            role.DescriptionBg);
+            role.DescriptionEn);
 }

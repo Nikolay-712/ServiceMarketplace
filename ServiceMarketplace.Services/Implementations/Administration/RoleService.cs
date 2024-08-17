@@ -121,12 +121,24 @@ public class RoleService : IRoleService
 
         _logger.LogInformation("Succeeded remove role with ID: {roleId}", id);
     }
-    private async Task<ApplicationRole> FindByIdAsync(Guid id)
+
+    public async Task<ApplicationRole> FindByIdAsync(Guid id)
     {
         ApplicationRole? role = await _roleManager.FindByIdAsync(id.ToString());
         if (role is null)
         {
-            _logger.LogError("Not found role with present ID : {roleId}", id);
+            _logger.LogError("Not found role with present ID : {RoleId}", id);
+            throw new NotFoundEntityException(Messages.RoleNotFound);
+        }
+        return role;
+    }
+
+    public async Task<ApplicationRole> FindByNameAsync(string name)
+    {
+        ApplicationRole? role = await _roleManager.FindByNameAsync(name);
+        if (role is null)
+        {
+            _logger.LogError("Not found role with present name : {RoleName}", name);
             throw new NotFoundEntityException(Messages.RoleNotFound);
         }
         return role;

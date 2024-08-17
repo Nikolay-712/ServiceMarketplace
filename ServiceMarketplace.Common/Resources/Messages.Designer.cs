@@ -286,6 +286,15 @@ namespace ServiceMarketplace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not found user.
+        /// </summary>
+        public static string NotFoundUser {
+            get {
+                return ResourceManager.GetString("NotFoundUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The option you have chosen to offer is not supported.
         /// </summary>
         public static string OfferNotSupporte {
@@ -336,6 +345,24 @@ namespace ServiceMarketplace.Common.Resources {
         public static string RoleNotFound {
             get {
                 return ResourceManager.GetString("RoleNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The current user has no such role.
+        /// </summary>
+        public static string UserNotInRole {
+            get {
+                return ResourceManager.GetString("UserNotInRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The current user already has this role.
+        /// </summary>
+        public static string UserRoleExists {
+            get {
+                return ResourceManager.GetString("UserRoleExists", resourceCulture);
             }
         }
         

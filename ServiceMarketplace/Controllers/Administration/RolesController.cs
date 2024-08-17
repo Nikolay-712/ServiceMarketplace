@@ -10,7 +10,7 @@ using static ServiceMarketplace.Common.Constants;
 namespace ServiceMarketplace.Controllers.Administration;
 
 //[Authorize(Roles = AdminRoleName)]
-[Route("api/[controller]")]
+[Route("api/administration/[controller]")]
 [ApiController]
 public class RolesController : ControllerBase
 {

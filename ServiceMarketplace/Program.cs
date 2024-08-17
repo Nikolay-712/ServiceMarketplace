@@ -101,6 +101,7 @@ internal class Program
         services.AddScoped<AdministrationInterfaces.ICategoryService, AdministrationImplementations.CategoryService>();
         services.AddScoped<AdministrationInterfaces.ICityService, AdministrationImplementations.CityService>();
         services.AddScoped<AdministrationInterfaces.IRoleService, AdministrationImplementations.RoleService>();
+        services.AddScoped<AdministrationInterfaces.IUserService, AdministrationImplementations.UserService>();
 
         //Owner area
         services.AddScoped<OwnerInterfaces.IServiceService, OwnerImplementations.ServiceService>();

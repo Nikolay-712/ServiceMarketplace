@@ -192,6 +192,9 @@
   <data name="NotFoundTag" xml:space="preserve">
     <value>There is no such tag</value>
   </data>
+  <data name="NotFoundUser" xml:space="preserve">
+    <value>Not found user</value>
+  </data>
   <data name="OfferNotSupporte" xml:space="preserve">
     <value>The option you have chosen to offer is not supported</value>
   </data>
@@ -209,6 +212,12 @@
   </data>
   <data name="RoleNotFound" xml:space="preserve">
     <value>Not found role</value>
+  </data>
+  <data name="UserNotInRole" xml:space="preserve">
+    <value>The current user has no such role</value>
+  </data>
+  <data name="UserRoleExists" xml:space="preserve">
+    <value>The current user already has this role</value>
   </data>
   <data name="ValueRange" xml:space="preserve">
     <value>The value must be between {MinValue} - {MaxValue}</value>

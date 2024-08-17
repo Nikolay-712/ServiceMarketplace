@@ -1,4 +1,5 @@
-﻿using ServiceMarketplace.Models.Request;
+﻿using ServiceMarketplace.Data.Entities;
+using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Models.Response;
 
 namespace ServiceMarketplace.Services.Interfaces.Administration;
@@ -14,4 +15,8 @@ public interface IRoleService
     Task UpdateAsync(Guid id, ManageRoleRequestModel requestModel);
 
     Task RemoveAsync(Guid id);
+
+    Task<ApplicationRole> FindByIdAsync(Guid id);
+
+    Task<ApplicationRole> FindByNameAsync(string name);
 }
