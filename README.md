@@ -1,1 +1,1 @@
-# ServiceMarketplace
+# web-based application to connect users with various services. The platform will feature a user-friendly interface for searching across diverse service categories and will allow service providers to showcase their portfolios, skills, and experience.
