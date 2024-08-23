@@ -6,11 +6,13 @@ using ServiceMarketplace.Data;
 using ServiceMarketplace.Data.Entities;
 using ServiceMarketplace.Models;
 using ServiceMarketplace.Models.Extensions;
+using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Models.Request.Filters;
 using ServiceMarketplace.Services.Interfaces.Users;
 
 using static ServiceMarketplace.Models.Response.RatingResponseModels;
 using static ServiceMarketplace.Models.Response.ServiceResponseModels;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ServiceMarketplace.Services.Implementations.Users;
 
@@ -25,6 +27,35 @@ public class ServiceService : IServiceService
         _applicationContext = applicationContext;
         _ratingService = ratingService;
         _logger = logger;
+    }
+
+    public async Task<PaginationResponseModel<ServiceResponseModel>> GetAllAsync(ServiceFilter serviceFilter)
+    {
+        IQueryable<Service> servicesQuery = _applicationContext.Services.Include(x => x.Ratings);
+        servicesQuery = ApplyServiceFilters(servicesQuery, serviceFilter);
+
+        int totalCount = await servicesQuery.CountAsync();
+        int pagesCount = (int)Math.Ceiling((double)totalCount / serviceFilter.ItemsPerPage);
+
+        servicesQuery = servicesQuery
+            .Skip(serviceFilter.SkipCount)
+            .Take(serviceFilter.ItemsPerPage);
+
+
+        IReadOnlyList<ServiceResponseModel> services = await servicesQuery
+            .Select(x => x.ToServiceResponseModel(new RatingCalculationResponseModel(
+                x.Ratings.Count(),
+                x.Ratings.Any() ? x.Ratings.Average(r => r.Value) : 0)))
+            .ToListAsync();
+
+        return new PaginationResponseModel<ServiceResponseModel>
+        {
+            Items = services,
+            TotalItems = totalCount,
+            PageNumber = serviceFilter.PageNumber,
+            ItemsPerPage = serviceFilter.ItemsPerPage,
+            PagesCount = pagesCount,
+        };
     }
 
     public async Task<ServiceDetailsResponseModel> GetDetailsAsync(Guid serviceId, RatingFilter ratingFilter)
@@ -51,5 +82,50 @@ public class ServiceService : IServiceService
         ServiceDetailsResponseModel serviceDetails = service.ToServiceDetailsResponseModel(ratingResponse);
 
         return serviceDetails;
+    }
+
+    private IQueryable<Service> ApplyServiceFilters(IQueryable<Service> servicesQuery, ServiceFilter serviceFilter)
+    {
+        if (!string.IsNullOrEmpty(serviceFilter.SearchTerm))
+        {
+            servicesQuery = servicesQuery.Where(x => x.NameBg.Contains(serviceFilter.SearchTerm) || x.NameEn.Contains(serviceFilter.SearchTerm));
+        }
+
+        if (serviceFilter.CategoryId != Guid.Empty)
+        {
+            servicesQuery = servicesQuery.Where(x => x.SubCategory.CategoryId == serviceFilter.CategoryId);
+        }
+
+        if (serviceFilter.SubCategoryId != Guid.Empty)
+        {
+            servicesQuery = servicesQuery.Where(x => x.SubCategoryId == serviceFilter.SubCategoryId);
+        }
+
+        if (serviceFilter.OfferedAtId is not null)
+        {
+            servicesQuery = servicesQuery.Where(x => x.OfferedAtId == serviceFilter.OfferedAtId);
+        }
+
+        if (serviceFilter.CityId != Guid.Empty)
+        {
+            servicesQuery = servicesQuery.Where(x => x.Cities.Select(x => x.CityId).Contains(serviceFilter.CityId));
+        }
+
+        if (serviceFilter.TagsId is not null)
+        {
+            servicesQuery = servicesQuery.Where(x => x.SelectedTags.Any(tag => serviceFilter.TagsId.Contains(tag.TagId)));
+        }
+
+        servicesQuery = serviceFilter.OrderParameters switch
+        {
+            ServiceOrderParameters.Date => servicesQuery.OrderBy(x => x.CreatedOn),
+            ServiceOrderParameters.Name => servicesQuery.OrderBy(x => x.NameBg).ThenBy(x => x.NameEn),
+            ServiceOrderParameters.Lowest_Rating => servicesQuery.OrderBy(x => x.Ratings.Any() ? x.Ratings.Average(r => r.Value) : 0),
+            ServiceOrderParameters.Highest_Rating => servicesQuery.OrderByDescending(x => x.Ratings.Any() ? x.Ratings.Average(r => r.Value) : 0),
+
+            _ => servicesQuery.OrderBy(x => x.Ratings.Select(x => x.Value).Average())
+        };
+
+        return servicesQuery;
     }
 }

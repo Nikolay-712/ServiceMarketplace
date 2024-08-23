@@ -18,6 +18,17 @@ public class ServicesController : ControllerBase
         _serviceService = serviceService;
     }
 
+    [HttpGet]
+    [ProducesResponseType<ResponseContent<PaginationResponseModel<ServiceResponseModel>>>(200)]
+    public async Task<ResponseContent<PaginationResponseModel<ServiceResponseModel>>> GetAllAsync([FromQuery] ServiceFilter serviceFilter)
+    {
+        PaginationResponseModel<ServiceResponseModel> services = await _serviceService.GetAllAsync(serviceFilter);
+        return new ResponseContent<PaginationResponseModel<ServiceResponseModel>>
+        {
+            Result = services
+        };
+    }
+
     [HttpGet("{serviceId}")]
     [ProducesResponseType<ResponseContent<ServiceDetailsResponseModel>>(200)]
     public async Task<ResponseContent<ServiceDetailsResponseModel>> GetDetailsAsync([FromRoute] Guid serviceId, [FromQuery] RatingFilter ratingFilter)
