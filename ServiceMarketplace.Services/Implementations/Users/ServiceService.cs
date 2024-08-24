@@ -81,6 +81,15 @@ public class ServiceService : IServiceService
         return serviceDetails;
     }
 
+    public async Task<IReadOnlyList<OfferedAtResponseModel>> GetOfferedAtAsync()
+    {
+        IReadOnlyList<OfferedAtResponseModel> offered = await _applicationContext.OfferedAt
+            .Select(x => x.ToOfferedAtResponseModel())
+            .ToListAsync();
+
+        return offered;
+    }
+
     private IQueryable<Service> ApplyServiceFilters(IQueryable<Service> servicesQuery, ServiceFilter serviceFilter)
     {
         if (!string.IsNullOrEmpty(serviceFilter.SearchTerm))

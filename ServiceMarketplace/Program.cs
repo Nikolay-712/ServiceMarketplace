@@ -113,6 +113,9 @@ internal class Program
         //User area
         services.AddScoped<IRatingService, RatingService>();
         services.AddScoped<IServiceService, ServiceService>();
+        services.AddScoped<ICategoryService, CategoryService>();
+        services.AddScoped<ICityService, CityService>();
+
     }
 
     private static void ConfigureRequestLocalization(IApplicationBuilder app, IConfiguration configuration)

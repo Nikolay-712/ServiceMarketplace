@@ -38,4 +38,15 @@ public class ServicesController : ControllerBase
             Result = service,
         };
     }
+
+    [HttpGet("offered-at")]
+    [ProducesResponseType<IReadOnlyList<OfferedAtResponseModel>>(200)]
+    public async Task<ResponseContent<IReadOnlyList<OfferedAtResponseModel>>> GetOfferedAtAsync()
+    {
+        IReadOnlyList<OfferedAtResponseModel> offered = await _serviceService.GetOfferedAtAsync();
+        return new ResponseContent<IReadOnlyList<OfferedAtResponseModel>>
+        {
+            Result = offered,
+        };
+    }
 }

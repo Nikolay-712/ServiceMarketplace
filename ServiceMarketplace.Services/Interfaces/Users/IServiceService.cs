@@ -9,4 +9,6 @@ public interface IServiceService
     Task<PaginationResponseModel<ServiceResponseModel>> GetAllAsync(ServiceFilter serviceFilter);
     
     Task<ServiceDetailsResponseModel> GetDetailsAsync(Guid serviceId, RatingFilter ratingFilter);
+
+    Task<IReadOnlyList<OfferedAtResponseModel>> GetOfferedAtAsync();
 }
