@@ -1,8 +1,8 @@
-﻿namespace ServiceMarketplace.Models.Response;
+﻿namespace ServiceMarketplace.Models.Response.Identity;
 
 public record RoleResponseModel(
-    Guid Id, 
-    string Name, 
+    Guid Id,
+    string Name,
     string CreatedOn,
     string DescriptionBg,
     string DescriptionEn);

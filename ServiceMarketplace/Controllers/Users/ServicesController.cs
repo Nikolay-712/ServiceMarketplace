@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ServiceMarketplace.Models;
 using ServiceMarketplace.Models.Request.Filters;
+using ServiceMarketplace.Models.Response.Services;
 using ServiceMarketplace.Services.Interfaces.Users;
-
-using static ServiceMarketplace.Models.Response.ServiceResponseModels;
 
 namespace ServiceMarketplace.Controllers.Users;
 

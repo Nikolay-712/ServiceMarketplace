@@ -1,6 +1,6 @@
 ﻿using ServiceMarketplace.Data.Entities;
 using ServiceMarketplace.Models.Request;
-using ServiceMarketplace.Models.Response;
+using ServiceMarketplace.Models.Response.Identity;
 
 namespace ServiceMarketplace.Services.Interfaces.Administration;
 

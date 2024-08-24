@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ServiceMarketplace.Models;
 using ServiceMarketplace.Models.Request;
-using ServiceMarketplace.Models.Response;
+using ServiceMarketplace.Models.Response.Identity;
 using ServiceMarketplace.Services.Interfaces.Administration;
 
 using static ServiceMarketplace.Common.Constants;

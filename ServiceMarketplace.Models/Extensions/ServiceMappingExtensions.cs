@@ -1,9 +1,7 @@
 ﻿using ServiceMarketplace.Data.Entities;
-using ServiceMarketplace.Models.Response;
 using ServiceMarketplace.Common.Extensions;
-
-using static ServiceMarketplace.Models.Response.ServiceResponseModels;
-using static ServiceMarketplace.Models.Response.RatingResponseModels;
+using ServiceMarketplace.Models.Response.Services;
+using ServiceMarketplace.Models.Response.Ratings;
 
 namespace ServiceMarketplace.Models.Extensions;
 

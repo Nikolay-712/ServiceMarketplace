@@ -8,9 +8,8 @@ using ServiceMarketplace.Models;
 using ServiceMarketplace.Models.Extensions;
 using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Models.Response;
+using ServiceMarketplace.Models.Response.Categories;
 using ServiceMarketplace.Services.Interfaces.Administration;
-
-using static ServiceMarketplace.Models.Response.CategoryResponseModels;
 
 namespace ServiceMarketplace.Services.Implementations.Administration;
 

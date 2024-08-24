@@ -10,9 +10,7 @@ using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Common.Exceptions.ServerExceptions;
 using ServiceMarketplace.Common.Resources;
 using ServiceMarketplace.Common.Exceptions.ClientExceptions;
-
-using static ServiceMarketplace.Models.Response.RatingResponseModels;
-using static ServiceMarketplace.Models.Response.ServiceResponseModels;
+using ServiceMarketplace.Models.Response.Ratings;
 
 namespace ServiceMarketplace.Services.Implementations.Owner;
 

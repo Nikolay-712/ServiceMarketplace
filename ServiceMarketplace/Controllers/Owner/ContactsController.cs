@@ -5,8 +5,8 @@ using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Services.Interfaces.Owner;
 using ServiceMarketplace.Common.Extensions;
 
-using static ServiceMarketplace.Models.Response.ServiceResponseModels;
 using static ServiceMarketplace.Common.Constants;
+using ServiceMarketplace.Models.Response.Contacts;
 
 namespace ServiceMarketplace.Controllers.Owner;
 

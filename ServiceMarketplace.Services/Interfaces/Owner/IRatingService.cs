@@ -1,8 +1,7 @@
 ﻿using ServiceMarketplace.Models.Request.Filters;
 using ServiceMarketplace.Models;
-using static ServiceMarketplace.Models.Response.RatingResponseModels;
-using static ServiceMarketplace.Models.Response.ServiceResponseModels;
 using ServiceMarketplace.Models.Request;
+using ServiceMarketplace.Models.Response.Ratings;
 
 namespace ServiceMarketplace.Services.Interfaces.Owner;
 

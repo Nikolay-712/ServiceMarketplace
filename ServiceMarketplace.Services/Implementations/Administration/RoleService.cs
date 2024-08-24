@@ -9,7 +9,7 @@ using ServiceMarketplace.Data;
 using ServiceMarketplace.Data.Entities;
 using ServiceMarketplace.Models.Extensions;
 using ServiceMarketplace.Models.Request;
-using ServiceMarketplace.Models.Response;
+using ServiceMarketplace.Models.Response.Identity;
 using ServiceMarketplace.Services.Interfaces.Administration;
 
 namespace ServiceMarketplace.Services.Implementations.Administration;

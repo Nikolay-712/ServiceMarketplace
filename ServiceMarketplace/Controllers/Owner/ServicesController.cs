@@ -4,10 +4,10 @@ using ServiceMarketplace.Models;
 using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Models.Request.Filters;
 using ServiceMarketplace.Services.Interfaces.Owner;
-
-using static ServiceMarketplace.Models.Response.ServiceResponseModels;
-using static ServiceMarketplace.Common.Constants;
 using ServiceMarketplace.Common.Extensions;
+using ServiceMarketplace.Models.Response.Services;
+
+using static ServiceMarketplace.Common.Constants;
 
 namespace ServiceMarketplace.Controllers.Owner;
 

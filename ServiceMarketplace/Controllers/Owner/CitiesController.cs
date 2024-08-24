@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServiceMarketplace.Models;
-using ServiceMarketplace.Models.Response;
+using ServiceMarketplace.Models.Response.Cities;
 using ServiceMarketplace.Services.Interfaces.Owner;
 
 using static ServiceMarketplace.Common.Constants;

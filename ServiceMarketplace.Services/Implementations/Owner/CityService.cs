@@ -4,7 +4,7 @@ using ServiceMarketplace.Common.Exceptions.ClientExceptions;
 using ServiceMarketplace.Common.Resources;
 using ServiceMarketplace.Data;
 using ServiceMarketplace.Models.Extensions;
-using ServiceMarketplace.Models.Response;
+using ServiceMarketplace.Models.Response.Cities;
 using ServiceMarketplace.Services.Interfaces.Owner;
 
 namespace ServiceMarketplace.Services.Implementations.Owner;

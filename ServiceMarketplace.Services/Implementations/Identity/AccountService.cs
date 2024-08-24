@@ -9,8 +9,7 @@ using ServiceMarketplace.Common.Resources;
 using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Common.Exceptions.ClientExceptions;
 using ServiceMarketplace.Common.Exceptions.ServerExceptions;
-using System.Security.Authentication;
-using static ServiceMarketplace.Models.Response.AccountResponseModels;
+using ServiceMarketplace.Models.Response.Identity;
 
 namespace ServiceMarketplace.Services.Implementations.Identity;
 

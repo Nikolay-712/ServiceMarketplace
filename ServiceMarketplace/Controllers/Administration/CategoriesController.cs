@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using ServiceMarketplace.Models;
 using ServiceMarketplace.Models.Request;
+using ServiceMarketplace.Models.Response.Categories;
 using ServiceMarketplace.Services.Interfaces.Administration;
 
-using static ServiceMarketplace.Models.Response.CategoryResponseModels;
 using static ServiceMarketplace.Common.Constants;
 
 namespace ServiceMarketplace.Controllers.Administration;

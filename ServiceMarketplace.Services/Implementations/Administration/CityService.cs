@@ -7,7 +7,7 @@ using ServiceMarketplace.Data.Entities;
 using ServiceMarketplace.Models;
 using ServiceMarketplace.Models.Extensions;
 using ServiceMarketplace.Models.Request;
-using ServiceMarketplace.Models.Response;
+using ServiceMarketplace.Models.Response.Cities;
 using ServiceMarketplace.Services.Interfaces.Administration;
 
 namespace ServiceMarketplace.Services.Implementations.Administration;

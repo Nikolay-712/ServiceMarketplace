@@ -7,9 +7,8 @@ using ServiceMarketplace.Data;
 using ServiceMarketplace.Data.Entities;
 using ServiceMarketplace.Models.Extensions;
 using ServiceMarketplace.Models.Request;
+using ServiceMarketplace.Models.Response.Contacts;
 using ServiceMarketplace.Services.Interfaces.Owner;
-
-using static ServiceMarketplace.Models.Response.ServiceResponseModels;
 
 namespace ServiceMarketplace.Services.Implementations.Owner;
 

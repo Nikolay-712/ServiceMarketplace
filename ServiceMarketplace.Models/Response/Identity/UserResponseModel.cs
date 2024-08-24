@@ -1,4 +1,4 @@
-﻿namespace ServiceMarketplace.Models.Response;
+﻿namespace ServiceMarketplace.Models.Response.Identity;
 
 public record UserResponseModel(
     Guid Id,

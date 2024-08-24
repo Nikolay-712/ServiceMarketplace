@@ -1,7 +1,7 @@
-﻿namespace ServiceMarketplace.Models.Response;
+﻿namespace ServiceMarketplace.Models.Response.Cities;
 
 public record CityResponseModel(
-    Guid Id, 
+    Guid Id,
     string NameBg,
     string NameEn);
 

@@ -1,5 +1,5 @@
 ﻿using ServiceMarketplace.Data.Entities;
-using ServiceMarketplace.Models.Response;
+using ServiceMarketplace.Models.Response.Cities;
 
 namespace ServiceMarketplace.Models.Extensions;
 

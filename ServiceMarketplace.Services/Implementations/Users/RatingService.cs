@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ServiceMarketplace.Common.Exceptions.ClientExceptions;
-using ServiceMarketplace.Common.Extensions;
 using ServiceMarketplace.Common.Resources;
 using ServiceMarketplace.Data;
 using ServiceMarketplace.Data.Entities;
@@ -9,10 +8,9 @@ using ServiceMarketplace.Models;
 using ServiceMarketplace.Models.Extensions;
 using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Models.Request.Filters;
-using ServiceMarketplace.Models.Response;
+using ServiceMarketplace.Models.Response.Ratings;
 using ServiceMarketplace.Services.Interfaces.Users;
 
-using static ServiceMarketplace.Models.Response.RatingResponseModels;
 
 namespace ServiceMarketplace.Services.Implementations.Users;
 

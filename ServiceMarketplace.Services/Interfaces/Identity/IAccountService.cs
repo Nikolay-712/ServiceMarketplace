@@ -1,5 +1,5 @@
 ﻿using ServiceMarketplace.Models.Request;
-using static ServiceMarketplace.Models.Response.AccountResponseModels;
+using ServiceMarketplace.Models.Response.Identity;
 
 namespace ServiceMarketplace.Services.Interfaces.Identity;
 

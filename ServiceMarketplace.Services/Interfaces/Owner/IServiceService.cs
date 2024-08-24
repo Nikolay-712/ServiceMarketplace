@@ -1,6 +1,6 @@
 ﻿using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Models.Request.Filters;
-using static ServiceMarketplace.Models.Response.ServiceResponseModels;
+using ServiceMarketplace.Models.Response.Services;
 
 namespace ServiceMarketplace.Services.Interfaces.Owner;
 

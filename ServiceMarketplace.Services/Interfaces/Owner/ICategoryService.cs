@@ -1,6 +1,4 @@
-﻿using ServiceMarketplace.Models.Response;
-
-using static ServiceMarketplace.Models.Response.CategoryResponseModels;
+﻿using ServiceMarketplace.Models.Response.Categories;
 
 namespace ServiceMarketplace.Services.Interfaces.Owner;
 

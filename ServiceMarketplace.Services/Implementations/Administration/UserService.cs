@@ -6,7 +6,7 @@ using ServiceMarketplace.Common.Extensions;
 using ServiceMarketplace.Common.Resources;
 using ServiceMarketplace.Data.Entities;
 using ServiceMarketplace.Models.Request;
-using ServiceMarketplace.Models.Response;
+using ServiceMarketplace.Models.Response.Identity;
 using ServiceMarketplace.Services.Interfaces.Administration;
 
 namespace ServiceMarketplace.Services.Implementations.Administration;

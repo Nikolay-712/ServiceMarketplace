@@ -3,9 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using ServiceMarketplace.Common.Extensions;
 using ServiceMarketplace.Models;
 using ServiceMarketplace.Models.Request;
+using ServiceMarketplace.Models.Response.Ratings;
 using ServiceMarketplace.Services.Interfaces.Users;
-
-using static ServiceMarketplace.Models.Response.RatingResponseModels;
 
 namespace ServiceMarketplace.Controllers.Users;
 

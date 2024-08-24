@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ServiceMarketplace.Models;
 using ServiceMarketplace.Models.Request;
+using ServiceMarketplace.Models.Response.Identity;
 using ServiceMarketplace.Services.Interfaces.Identity;
-
-using static ServiceMarketplace.Models.Response.AccountResponseModels;
 
 namespace ServiceMarketplace.Controllers.Identity;
 

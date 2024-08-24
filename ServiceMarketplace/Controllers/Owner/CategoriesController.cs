@@ -2,8 +2,8 @@
 using ServiceMarketplace.Models;
 using ServiceMarketplace.Services.Interfaces.Owner;
 using Microsoft.AspNetCore.Authorization;
+using ServiceMarketplace.Models.Response.Categories;
 
-using static ServiceMarketplace.Models.Response.CategoryResponseModels;
 using static ServiceMarketplace.Common.Constants;
 
 namespace ServiceMarketplace.Controllers.Owner;

@@ -1,4 +1,4 @@
-﻿using ServiceMarketplace.Models.Response;
+﻿using ServiceMarketplace.Models.Response.Cities;
 
 namespace ServiceMarketplace.Services.Interfaces.Owner;
 

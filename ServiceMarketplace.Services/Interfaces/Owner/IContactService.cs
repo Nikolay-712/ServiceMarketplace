@@ -1,6 +1,5 @@
 ﻿using ServiceMarketplace.Models.Request;
-
-using static ServiceMarketplace.Models.Response.ServiceResponseModels;
+using ServiceMarketplace.Models.Response.Contacts;
 
 namespace ServiceMarketplace.Services.Interfaces.Owner;
 

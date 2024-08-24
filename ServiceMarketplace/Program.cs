@@ -9,7 +9,6 @@ using ServiceMarketplace.Data.Configurations;
 using ServiceMarketplace.Data.Entities;
 using ServiceMarketplace.Infrastructure.Configurations;
 using ServiceMarketplace.Infrastructure.Filters;
-using ServiceMarketplace.Models.Validators;
 using System.Globalization;
 using System.Text;
 using ServiceMarketplace.Services.Interfaces.Users;
@@ -24,6 +23,7 @@ using AdministrationImplementations = ServiceMarketplace.Services.Implementation
 using OwnerInterfaces = ServiceMarketplace.Services.Interfaces.Owner;
 using OwnerImplementations = ServiceMarketplace.Services.Implementations.Owner;
 using ServiceMarketplace.Infrastructure.Middleware;
+using ServiceMarketplace.Models.Validators;
 
 internal class Program
 {

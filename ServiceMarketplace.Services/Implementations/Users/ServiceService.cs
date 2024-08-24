@@ -6,13 +6,10 @@ using ServiceMarketplace.Data;
 using ServiceMarketplace.Data.Entities;
 using ServiceMarketplace.Models;
 using ServiceMarketplace.Models.Extensions;
-using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Models.Request.Filters;
+using ServiceMarketplace.Models.Response.Ratings;
+using ServiceMarketplace.Models.Response.Services;
 using ServiceMarketplace.Services.Interfaces.Users;
-
-using static ServiceMarketplace.Models.Response.RatingResponseModels;
-using static ServiceMarketplace.Models.Response.ServiceResponseModels;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ServiceMarketplace.Services.Implementations.Users;
 

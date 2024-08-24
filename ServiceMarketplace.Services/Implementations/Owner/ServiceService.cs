@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 using ServiceMarketplace.Common.Exceptions.ClientExceptions;
-using ServiceMarketplace.Common.Extensions;
 using ServiceMarketplace.Common.Resources;
 using ServiceMarketplace.Data;
 using ServiceMarketplace.Data.Entities;
@@ -10,10 +9,9 @@ using ServiceMarketplace.Models;
 using ServiceMarketplace.Models.Extensions;
 using ServiceMarketplace.Models.Request;
 using ServiceMarketplace.Models.Request.Filters;
-using ServiceMarketplace.Models.Response;
+using ServiceMarketplace.Models.Response.Ratings;
+using ServiceMarketplace.Models.Response.Services;
 using ServiceMarketplace.Services.Interfaces.Owner;
-using static ServiceMarketplace.Models.Response.RatingResponseModels;
-using static ServiceMarketplace.Models.Response.ServiceResponseModels;
 
 namespace ServiceMarketplace.Services.Implementations.Owner;
 
