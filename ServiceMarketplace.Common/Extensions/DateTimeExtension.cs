@@ -4,9 +4,16 @@ namespace ServiceMarketplace.Common.Extensions;
 
 public static class DateTimeExtension
 {
+    private static readonly CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
+
     public static string DateFormat(this DateTime dateTime)
     {
-        CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
+        
         return dateTime.ToString(cultureInfo);
+    }
+
+    public static string TimeFormat(this TimeOnly timeOnly)
+    {
+        return timeOnly.ToString(cultureInfo);
     }
 }

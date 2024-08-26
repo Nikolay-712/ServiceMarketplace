@@ -109,6 +109,7 @@ internal class Program
         services.AddScoped<OwnerInterfaces.ICityService, OwnerImplementations.CityService>();
         services.AddScoped<OwnerInterfaces.IContactService, OwnerImplementations.ContactService>();
         services.AddScoped<OwnerInterfaces.IRatingService, OwnerImplementations.RatingService>();
+        services.AddScoped<OwnerInterfaces.IBusinessHoursService, OwnerImplementations.BusinessHoursService>();
 
         //User area
         services.AddScoped<IRatingService, RatingService>();

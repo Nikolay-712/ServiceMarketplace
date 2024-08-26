@@ -153,14 +153,23 @@
   <data name="InvalidCredentials" xml:space="preserve">
     <value>Не валиден е-майл адрес или парола</value>
   </data>
+  <data name="InvalidDay" xml:space="preserve">
+    <value>Невалидна стойност за ден от седмицата</value>
+  </data>
   <data name="InvalidEmail" xml:space="preserve">
     <value>Invalid email format</value>
+  </data>
+  <data name="InvalidEndTime" xml:space="preserve">
+    <value>Крайният час трябва да е след началния час</value>
   </data>
   <data name="InvalidPhoneNumber" xml:space="preserve">
     <value>Посочения  телефонен номер не е валиден, Моля използвайте формат : '+359 xxxx xx xxx' или '0 xxxx xx xxx'</value>
   </data>
   <data name="InvalidRatingValue" xml:space="preserve">
     <value>Стойността която сте избрали не е валидна</value>
+  </data>
+  <data name="InvalidStartTime" xml:space="preserve">
+    <value>Началният час трябва да е преди крайния час</value>
   </data>
   <data name="InvalidUrl" xml:space="preserve">
     <value>Моля използвайте валиден интернет адрес</value>

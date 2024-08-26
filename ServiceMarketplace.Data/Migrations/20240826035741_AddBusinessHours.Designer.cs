@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ServiceMarketplace.Data;
 
@@ -11,9 +12,11 @@ using ServiceMarketplace.Data;
 namespace ServiceMarketplace.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240826035741_AddBusinessHours")]
+    partial class AddBusinessHours
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -273,7 +276,7 @@ namespace ServiceMarketplace.Data.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("BusinessHours", (string)null);
+                    b.ToTable("BusinessHours");
                 });
 
             modelBuilder.Entity("ServiceMarketplace.Data.Entities.Category", b =>
@@ -312,7 +315,7 @@ namespace ServiceMarketplace.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("ServiceMarketplace.Data.Entities.City", b =>
@@ -334,7 +337,7 @@ namespace ServiceMarketplace.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cities", (string)null);
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("ServiceMarketplace.Data.Entities.Contact", b =>
@@ -366,7 +369,7 @@ namespace ServiceMarketplace.Data.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("Contacts", (string)null);
+                    b.ToTable("Contacts");
                 });
 
             modelBuilder.Entity("ServiceMarketplace.Data.Entities.OfferedAt", b =>
@@ -390,7 +393,7 @@ namespace ServiceMarketplace.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("OfferedAt", (string)null);
+                    b.ToTable("OfferedAt");
                 });
 
             modelBuilder.Entity("ServiceMarketplace.Data.Entities.OwnerComment", b =>
@@ -424,7 +427,7 @@ namespace ServiceMarketplace.Data.Migrations
                     b.HasIndex("RatingId")
                         .IsUnique();
 
-                    b.ToTable("OwnerComments", (string)null);
+                    b.ToTable("OwnerComments");
                 });
 
             modelBuilder.Entity("ServiceMarketplace.Data.Entities.Rating", b =>
@@ -459,7 +462,7 @@ namespace ServiceMarketplace.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Ratings", (string)null);
+                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("ServiceMarketplace.Data.Entities.Service", b =>
@@ -513,7 +516,7 @@ namespace ServiceMarketplace.Data.Migrations
 
                     b.HasIndex("SubCategoryId");
 
-                    b.ToTable("Services", (string)null);
+                    b.ToTable("Services");
                 });
 
             modelBuilder.Entity("ServiceMarketplace.Data.Entities.ServiceCity", b =>
@@ -528,7 +531,7 @@ namespace ServiceMarketplace.Data.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("ServiceCities", (string)null);
+                    b.ToTable("ServiceCities");
                 });
 
             modelBuilder.Entity("ServiceMarketplace.Data.Entities.ServiceTag", b =>
@@ -543,7 +546,7 @@ namespace ServiceMarketplace.Data.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("ServiceTags", (string)null);
+                    b.ToTable("ServiceTags");
                 });
 
             modelBuilder.Entity("ServiceMarketplace.Data.Entities.SubCategory", b =>
@@ -587,7 +590,7 @@ namespace ServiceMarketplace.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("SubCategories", (string)null);
+                    b.ToTable("SubCategories");
                 });
 
             modelBuilder.Entity("ServiceMarketplace.Data.Entities.Tag", b =>
@@ -616,7 +619,7 @@ namespace ServiceMarketplace.Data.Migrations
 
                     b.HasIndex("SubCategoryId");
 
-                    b.ToTable("Tags", (string)null);
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

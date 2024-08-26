@@ -169,11 +169,29 @@ namespace ServiceMarketplace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid value for day of week.
+        /// </summary>
+        public static string InvalidDay {
+            get {
+                return ResourceManager.GetString("InvalidDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid email format.
         /// </summary>
         public static string InvalidEmail {
             get {
                 return ResourceManager.GetString("InvalidEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End time must be after start time.
+        /// </summary>
+        public static string InvalidEndTime {
+            get {
+                return ResourceManager.GetString("InvalidEndTime", resourceCulture);
             }
         }
         
@@ -192,6 +210,15 @@ namespace ServiceMarketplace.Common.Resources {
         public static string InvalidRatingValue {
             get {
                 return ResourceManager.GetString("InvalidRatingValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start time must be before end time.
+        /// </summary>
+        public static string InvalidStartTime {
+            get {
+                return ResourceManager.GetString("InvalidStartTime", resourceCulture);
             }
         }
         

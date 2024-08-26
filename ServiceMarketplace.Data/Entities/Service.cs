@@ -31,4 +31,6 @@ public class Service : BaseEntity
     public virtual ICollection<Contact> Contacts { get; set; }
 
     public virtual ICollection<Rating> Ratings { get; set; }
+
+    public virtual ICollection<BusinessHours> BusinessHours { get; set; }
 }

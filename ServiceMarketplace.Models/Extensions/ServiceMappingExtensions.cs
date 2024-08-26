@@ -36,4 +36,11 @@ public static class ServiceMappingExtensions
                offeredAt.NameBg,
                offeredAt.NameEn);
 
+    public static BusinessHoursResponseModel ToBusinessHoursResponseModel(this BusinessHours businessHours)
+        => new BusinessHoursResponseModel(
+                businessHours.DayOfWeek.ToString(),
+                businessHours.StartTime.TimeFormat(),
+                businessHours.EndTime.TimeFormat(),
+                businessHours.IsDayOff);
+
 }

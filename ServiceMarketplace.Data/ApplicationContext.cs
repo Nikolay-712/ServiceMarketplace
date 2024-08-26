@@ -33,6 +33,8 @@ public class ApplicationContext : IdentityDbContext<ApplicationUser, Application
 
     public DbSet<OwnerComment> OwnerComments { get; set; }
 
+    public DbSet<BusinessHours> BusinessHours { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

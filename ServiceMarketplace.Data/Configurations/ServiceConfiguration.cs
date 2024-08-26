@@ -59,5 +59,12 @@ internal class ServiceConfiguration : IEntityTypeConfiguration<Service>
             .WithOne()
             .HasForeignKey(x => x.ServiceId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        service
+            .HasMany(x => x.BusinessHours)
+            .WithOne()
+            .HasForeignKey(x => x.ServiceId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
