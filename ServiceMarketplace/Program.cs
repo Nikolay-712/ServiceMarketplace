@@ -24,6 +24,8 @@ using OwnerInterfaces = ServiceMarketplace.Services.Interfaces.Owner;
 using OwnerImplementations = ServiceMarketplace.Services.Implementations.Owner;
 using ServiceMarketplace.Infrastructure.Middleware;
 using ServiceMarketplace.Models.Validators;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Builder;
 
 internal class Program
 {
@@ -62,6 +64,7 @@ internal class Program
         services.Configure<RequestLocalizationSettings>(configuration.GetSection(nameof(RequestLocalizationSettings)));
         services.Configure<SwaggerSettings>(configuration.GetSection(nameof(SwaggerSettings)));
         services.Configure<JwtTokenSettings>(configuration.GetSection(nameof(JwtTokenSettings)));
+        services.Configure<CorsSettings>(configuration.GetSection(nameof(CorsSettings)));
     }
 
     [Obsolete]
@@ -84,6 +87,19 @@ internal class Program
         services.Configure<ApiBehaviorOptions>(options =>
         {
             options.SuppressModelStateInvalidFilter = true;
+        });
+
+        CorsSettings corsSettings = new();
+        configuration.GetSection(nameof(CorsSettings)).Bind(corsSettings);
+        services.AddCors(options =>
+        {
+            options.AddPolicy(corsSettings.PolicyName,
+                builder =>
+                {
+                    builder.WithOrigins(corsSettings.Origins)
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
+                });
         });
 
         SwaggerConfiguration(services, configuration);
@@ -189,6 +205,10 @@ internal class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
+        CorsSettings corsSettings = new();
+        app.Configuration.GetSection(nameof(SwaggerSettings)).Bind(corsSettings);
+        app.UseCors(corsSettings.PolicyName);
 
         app.UseHttpsRedirection();
         app.UseMiddleware<TokenValidatorMiddleware>();
