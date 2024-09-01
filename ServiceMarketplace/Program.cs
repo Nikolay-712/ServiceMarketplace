@@ -207,11 +207,11 @@ internal class Program
         }
 
         CorsSettings corsSettings = new();
-        app.Configuration.GetSection(nameof(SwaggerSettings)).Bind(corsSettings);
+        app.Configuration.GetSection(nameof(CorsSettings)).Bind(corsSettings);
         app.UseCors(corsSettings.PolicyName);
 
         app.UseHttpsRedirection();
-        app.UseMiddleware<TokenValidatorMiddleware>();
+        //app.UseMiddleware<TokenValidatorMiddleware>();
 
         app.UseAuthentication();
         app.UseAuthorization();

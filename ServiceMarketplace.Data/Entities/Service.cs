@@ -24,6 +24,10 @@ public class Service : BaseEntity
 
     public OfferedAt OfferedAt { get; set; }
 
+    public int ServiceCostId { get; set; }
+
+    public ServiceCost ServiceCost { get; set; }
+
     public virtual ICollection<ServiceCity> Cities { get; set; }
 
     public virtual ICollection<ServiceTag> SelectedTags { get; set; }
@@ -33,4 +37,5 @@ public class Service : BaseEntity
     public virtual ICollection<Rating> Ratings { get; set; }
 
     public virtual ICollection<BusinessHours> BusinessHours { get; set; }
+
 }
