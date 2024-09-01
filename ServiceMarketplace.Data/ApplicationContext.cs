@@ -35,6 +35,8 @@ public class ApplicationContext : IdentityDbContext<ApplicationUser, Application
 
     public DbSet<BusinessHours> BusinessHours { get; set; }
 
+    public DbSet<ServiceCost> ServiceCosts { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

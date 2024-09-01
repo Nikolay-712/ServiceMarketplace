@@ -231,4 +231,7 @@
   <data name="ValueRange" xml:space="preserve">
     <value>The value must be between {MinValue} - {MaxValue}</value>
   </data>
+  <data name="InvalidPriceType" xml:space="preserve">
+    <value>You have selected an invalid price type</value>
+  </data>
 </root>

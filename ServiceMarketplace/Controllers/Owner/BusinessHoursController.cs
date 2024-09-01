@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ServiceMarketplace.Models;
 using ServiceMarketplace.Models.Request;
+using ServiceMarketplace.Models.Response.Services;
 using ServiceMarketplace.Services.Interfaces.Owner;
 
 using static ServiceMarketplace.Common.Constants;
@@ -29,8 +30,13 @@ public class BusinessHoursController : ControllerBase
     }
 
     [HttpGet("{serviceId}")]
-    public async Task GetAsync([FromRoute] Guid serviceId)
+    [ProducesResponseType<ResponseContent<IReadOnlyList<BusinessHoursResponseModel>>>(200)]
+    public async Task<ResponseContent<IReadOnlyList<BusinessHoursResponseModel>>> GetAsync([FromRoute] Guid serviceId)
     {
-       var result = await _businessHoursService.GetAsync(serviceId);
+        IReadOnlyList<BusinessHoursResponseModel> result = await _businessHoursService.GetAsync(serviceId);
+        return new ResponseContent<IReadOnlyList<BusinessHoursResponseModel>>
+        {
+            Result = result
+        };
     }
 }

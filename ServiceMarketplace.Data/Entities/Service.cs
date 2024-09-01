@@ -24,7 +24,6 @@ public class Service : BaseEntity
 
     public OfferedAt OfferedAt { get; set; }
 
-    public int ServiceCostId { get; set; }
 
     public ServiceCost ServiceCost { get; set; }
 

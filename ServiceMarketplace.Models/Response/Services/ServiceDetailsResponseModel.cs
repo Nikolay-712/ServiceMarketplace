@@ -1,4 +1,5 @@
-﻿using ServiceMarketplace.Models.Response.Categories;
+﻿using ServiceMarketplace.Data.Enums;
+using ServiceMarketplace.Models.Response.Categories;
 using ServiceMarketplace.Models.Response.Cities;
 using ServiceMarketplace.Models.Response.Contacts;
 using ServiceMarketplace.Models.Response.Ratings;
@@ -13,9 +14,12 @@ public record ServiceDetailsResponseModel(
         string NameEn,
         string DescriptionBg,
         string DescriptionEn,
+        PricingType? PricingType,
+        decimal? Price,
         SubCategoryResponseModel SubCategory,
         OfferedAtResponseModel OfferedAt,
         IReadOnlyList<CityResponseModel> Cities,
         IReadOnlyList<TagResponseModel> Tags,
         IReadOnlyList<ContactResponseModel> Contacts,
-        RatingResponseModel Ratings);
+        RatingResponseModel Ratings, 
+        IReadOnlyList<BusinessHoursResponseModel>? BusinessHours);

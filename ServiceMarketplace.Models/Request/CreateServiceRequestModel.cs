@@ -1,4 +1,6 @@
-﻿namespace ServiceMarketplace.Models.Request;
+﻿using ServiceMarketplace.Data.Enums;
+
+namespace ServiceMarketplace.Models.Request;
 
 public record CreateServiceRequestModel(
     string NameBg,
@@ -9,4 +11,6 @@ public record CreateServiceRequestModel(
     int OfferedAtId,
     HashSet<Guid> Cities,
     HashSet<int> Tags,
-    ManageContactRequestModel ContactRequestModel);
+    ManageContactRequestModel ContactRequestModel,
+    decimal? Price, 
+    PricingType PricingType);

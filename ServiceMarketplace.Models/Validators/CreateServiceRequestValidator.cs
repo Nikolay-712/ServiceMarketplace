@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using ServiceMarketplace.Common.Resources;
+using ServiceMarketplace.Data.Enums;
 using ServiceMarketplace.Models.Request;
 
 namespace ServiceMarketplace.Models.Validators;
@@ -79,5 +80,22 @@ public class CreateServiceRequestValidator : AbstractValidator<CreateServiceRequ
         RuleFor(x => x.ContactRequestModel)
             .SetValidator(x => new ManageContactRequestValidator())
             .When(x => x.ContactRequestModel is not null);
+
+        
+        RuleFor(x => x.PricingType)
+            .IsInEnum()
+            .WithMessage(Messages.InvalidPriceType);
+
+
+        RuleFor(x => x).Custom((x, context) =>
+        {
+            if (x.PricingType != PricingType.By_Agreement)
+            {
+                if (x.Price is null)
+                {
+                    context.AddFailure(Messages.RequiredField);
+                }
+            }
+        });
     }
 }

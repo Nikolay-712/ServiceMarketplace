@@ -22,6 +22,7 @@ public class ServiceService : IServiceService
     private readonly ICityService _cityService;
     private readonly IContactService _contactService;
     private readonly IRatingService _ratingService;
+    private readonly IBusinessHoursService _businessHoursService;
     private readonly ILogger<ServiceService> _logger;
 
     public ServiceService(
@@ -30,6 +31,7 @@ public class ServiceService : IServiceService
         ICityService cityService,
         IContactService contactService,
         IRatingService ratingService,
+        IBusinessHoursService businessHoursService,
         ILogger<ServiceService> logger)
     {
         _applicationContext = applicationContext;
@@ -37,6 +39,7 @@ public class ServiceService : IServiceService
         _cityService = cityService;
         _contactService = contactService;
         _ratingService = ratingService;
+        _businessHoursService = businessHoursService;
         _logger = logger;
     }
 
@@ -65,6 +68,15 @@ public class ServiceService : IServiceService
             await AddServiceTagsAsync(requestModel.Tags, requestModel.SubCategoryId, service.Id);
             await AddServiceCitiesAsync(requestModel.Cities, service.Id);
             _contactService.CreateContactAsync(service.Id, requestModel.ContactRequestModel);
+
+            ServiceCost serviceCost = new()
+            {
+                PricingType = requestModel.PricingType,
+                Price = requestModel.PricingType is Data.Enums.PricingType.By_Agreement ? null : requestModel.Price,
+                ServiceId = service.Id,
+            };
+
+            _applicationContext.ServiceCosts.Add(serviceCost);
 
             await _applicationContext.SaveChangesAsync();
             await transaction.CommitAsync();
@@ -120,7 +132,7 @@ public class ServiceService : IServiceService
         IReadOnlyList<ServiceResponseModel> services = await servicesQuery
                 .Select(x => x.ToServiceResponseModel(
                     new RatingCalculationResponseModel(
-                        x.Ratings.Count(), 
+                        x.Ratings.Count(),
                         x.Ratings.Any() ? x.Ratings.Average(r => r.Value) : 0)))
                 .ToListAsync();
 
@@ -135,6 +147,7 @@ public class ServiceService : IServiceService
             .Include(x => x.Cities).ThenInclude(x => x.City)
             .Include(x => x.SelectedTags).ThenInclude(x => x.Tag)
             .Include(x => x.Contacts)
+            .Include(x => x.ServiceCost)
             .FirstOrDefaultAsync(x => x.OwnerId == ownerId && x.Id == serviceId);
 
         if (service is null)
@@ -147,7 +160,9 @@ public class ServiceService : IServiceService
         RatingCalculationResponseModel calculation = await _ratingService.CalculateServiceRatingAsync(serviceId);
         RatingResponseModel ratingResponse = _ratingService.CreateRatingResponse(userVotes, calculation);
 
-        ServiceDetailsResponseModel serviceDetails = service.ToServiceDetailsResponseModel(ratingResponse);
+        IReadOnlyList<BusinessHoursResponseModel> businessHours = await _businessHoursService.GetAsync(serviceId);
+
+        ServiceDetailsResponseModel serviceDetails = service.ToServiceDetailsResponseModel(ratingResponse, businessHours);
 
         return serviceDetails;
     }

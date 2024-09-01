@@ -15,7 +15,7 @@ public static class ServiceMappingExtensions
                rating);
 
 
-    public static ServiceDetailsResponseModel ToServiceDetailsResponseModel(this Service service, RatingResponseModel ratings)
+    public static ServiceDetailsResponseModel ToServiceDetailsResponseModel(this Service service, RatingResponseModel ratings,IReadOnlyList<BusinessHoursResponseModel> businessHours)
         => new(
             service.Id,
             service.CreatedOn.DateFormat(),
@@ -24,12 +24,15 @@ public static class ServiceMappingExtensions
             service.NameEn,
             service.DescriptionBg,
             service.DescriptionBg,
+            service.ServiceCost.PricingType,
+            service.ServiceCost.Price,
             service.SubCategory.ToSubCategoryResponseModel(),
             service.OfferedAt.ToOfferedAtResponseModel(),
             service.Cities.Select(c => c.City.ToCityResponseModel()).ToList(),
             service.SelectedTags.Select(t => t.Tag.ToTagResponseModel()).ToList(),
             service.Contacts.Select(c => c.ToContactResponseModel()).ToList(),
-            ratings);
+            ratings,
+            businessHours);
 
     public static OfferedAtResponseModel ToOfferedAtResponseModel(this OfferedAt offeredAt)
         => new(offeredAt.Id,

@@ -401,5 +401,18 @@ namespace ServiceMarketplace.Common.Resources {
                 return ResourceManager.GetString("ValueRange", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to You have selected an invalid price type
+        /// </summary>
+        public static string InvalidPriceType
+        {
+            get
+            {
+                return ResourceManager.GetString("InvalidPriceType", resourceCulture);
+            }
+        }
+
+        //
     }
 }

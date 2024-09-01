@@ -63,6 +63,8 @@ public class ServiceService : IServiceService
             .Include(x => x.Cities).ThenInclude(x => x.City)
             .Include(x => x.SelectedTags).ThenInclude(x => x.Tag)
             .Include(x => x.Contacts)
+            .Include(x => x.BusinessHours)
+            .Include(x => x.ServiceCost)
             .FirstOrDefaultAsync(x => x.Id == serviceId);
 
         if (service is null)
@@ -76,7 +78,9 @@ public class ServiceService : IServiceService
 
         RatingResponseModel ratingResponse = new(userVotes, calculation.VotesCount, calculation.AverageRating);
 
-        ServiceDetailsResponseModel serviceDetails = service.ToServiceDetailsResponseModel(ratingResponse);
+        ServiceDetailsResponseModel serviceDetails = service.ToServiceDetailsResponseModel(
+            ratingResponse,
+            service.BusinessHours.Select(x => x.ToBusinessHoursResponseModel()).ToList());
 
         return serviceDetails;
     }
